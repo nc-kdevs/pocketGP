@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   Image,
   ScrollView,
@@ -11,7 +11,7 @@ import {
 import { WebBrowser } from 'expo';
 import t from 'tcomb-form-native';
 
-export default class LoginScreen extends React.Component {
+export default class LoginScreen extends Component {
   static navigationOptions = {
     header: null,
   };
@@ -37,7 +37,7 @@ export default class LoginScreen extends React.Component {
           <View style={styles.formContainer}>
             <Form
               type={User}
-              ref={c => this._form = c}
+              ref={(login: object) => this._form = login}
               options={options}
             />
             <Button
