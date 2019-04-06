@@ -4,11 +4,9 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
   Button,
 } from 'react-native';
-import { WebBrowser } from 'expo';
 import t from 'tcomb-form-native';
 
 export default class SettingsScreen extends Component {
@@ -17,7 +15,7 @@ export default class SettingsScreen extends Component {
   };
 
   state = {
-    isPatient: false,
+    isPatient: true,
   }
 
   render() {
@@ -104,6 +102,24 @@ const Surgery = t.struct({
 
 const Form = t.form.Form;
 
+const formStyles = {
+  ...Form.stylesheet,
+  controlLabel: {
+    normal: {
+      color: '#000',
+      fontSize: 18,
+      marginBottom: 7,
+      fontWeight: '600',
+    },
+    error: {
+      color: 'red',
+      fontSize: 18,
+      marginBottom: 7,
+      fontWeight: '600'
+    }
+  }
+}
+
 const options = {
   fields: {
     username: {
@@ -113,6 +129,7 @@ const options = {
       error: 'Password Required To Make Changes'
     },
   },
+  stylesheet: formStyles,
 };
 
 const styles = StyleSheet.create({
@@ -132,7 +149,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 10,
     padding: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.3)',
   },
   logoImage: {
     position: 'absolute',
