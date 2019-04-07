@@ -23,7 +23,7 @@ class Header extends Component<null, HeaderState> {
   }
 
   setModalVisible = () => {
-    console.log("Hello");
+    console.log(this.state.modalVisible);
     this.setState({
       modalVisible: !this.state.modalVisible
     });
@@ -49,21 +49,25 @@ class Header extends Component<null, HeaderState> {
                 "https://facebook.github.io/react-native/docs/assets/favicon.png"
             }}
           />
-          <TouchableOpacity onPress={() => this.setModalVisible}>
+          <TouchableOpacity
+            style={styles.HBcontainer}
+            onPress={() => this.setModalVisible()}
+          >
             <TouchableHighlight>
               <Image
+                style={styles.hamburger}
                 source={{
                   uri:
-                    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg=="
+                    "https://image.shutterstock.com/image-vector/burger-menu-web-icon-vector-450w-1077487118.jpg"
                 }}
               />
             </TouchableHighlight>
-            <View>
-              <Text>Ailment Notes</Text>
-            </View>
           </TouchableOpacity>
         </View>
-        {/* <Navlinks modalVisible={this.state.modalVisible} /> */}
+        <Navlinks
+          modalVisible={this.state.modalVisible}
+          setModalVisible={this.setModalVisible}
+        />
       </View>
     );
   }
@@ -84,8 +88,8 @@ const styles = StyleSheet.create({
   container2: {
     alignItems: "flex-end",
     flexDirection: "row",
-    marginBottom: 30,
-    marginLeft: 200
+    marginLeft: 200,
+    marginBottom: 30
   },
   logo: {
     width: 80,
@@ -95,5 +99,15 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     marginRight: 15
+  },
+  hamburger: {
+    width: 50,
+    height: 50,
+    position: "absolute"
+  },
+  HBcontainer: {
+    marginTop: 50,
+    height: 50,
+    width: 50
   }
 });
