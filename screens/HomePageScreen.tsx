@@ -18,30 +18,57 @@ export default class HomePageScreen extends React.Component {
     header: null
   };
 
+  navigate = () => {};
+
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         <Header />
         <View style={styles.content}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigate("Home")}
+          >
             <TouchableHighlight style={styles.imageContainer}>
               <Image style={styles.image} source={{}} />
             </TouchableHighlight>
+            <View style={styles.textContainer}>
+              <Text style={styles.innertext}>Ailment Notes</Text>
+            </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigate("Home")}
+          >
             <TouchableHighlight style={styles.imageContainer}>
               <Image style={styles.image} source={{}} />
             </TouchableHighlight>
+            <View style={styles.textContainer}>
+              <Text style={styles.innertext}>Analytics</Text>
+            </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigate("Home")}
+          >
             <TouchableHighlight style={styles.imageContainer}>
               <Image style={styles.image} source={{}} />
             </TouchableHighlight>
+            <View style={styles.textContainer}>
+              <Text style={styles.innertext}>Treatment Plan</Text>
+            </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigate("Home")}
+          >
             <TouchableHighlight style={styles.imageContainer}>
               <Image style={styles.image} source={{}} />
             </TouchableHighlight>
+            <View style={styles.textContainer}>
+              <Text style={styles.innertext}>Account Settings</Text>
+            </View>
           </TouchableOpacity>
         </View>
       </View>
@@ -87,5 +114,17 @@ const styles = StyleSheet.create({
     height: 200,
     width: 50,
     backgroundColor: "white"
+  },
+  innertext: {
+    textAlign: "center",
+    textAlignVertical: "center",
+    color: "white",
+    fontSize: 20
+  },
+  textContainer: {
+    paddingLeft: 30,
+    position: "absolute",
+    flexWrap: "wrap",
+    width: 150
   }
 });
