@@ -24,7 +24,13 @@ export default class HomePageScreen extends React.Component {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
-        <Header />
+        <View style={styles.logoContainer}>
+            <Image
+              source={require("../assets/images/logo.png")}
+              style={styles.logoImage}
+            />
+            <Text style={styles.mainHeaderText}>Pocket GP</Text>
+          </View>
         <View style={styles.content}>
           <TouchableOpacity
             style={styles.button}
@@ -117,31 +123,51 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     backgroundColor: "white",
     overflow: "hidden",
-    borderTopWidth: 3,
-    borderColor: "rgba(61,176,215,0.2)"
   },
   contentContainer: {
     paddingTop: 30
+  },
+  logoContainer: {
+    marginTop: 0,
+    padding: 10,
+    marginBottom: 10,    
+    borderBottomWidth: 3,
+    borderColor: "rgba(61,176,215,0.2)"
+  },
+  logoImage: {
+    position: "absolute",
+    top: 0,
+    width: 40,
+    height: 50,
+    resizeMode: "center",
+    marginLeft: 20
+  },
+  mainHeaderText: {
+    fontSize: 36,
+    color: "rgba(0, 0, 0, 1)",
+    lineHeight: 48,
+    textAlign: "right",
+    marginRight: 20
   },
   button: {
     borderWidth: 1,
     borderColor: "rgba(0,0,0,0.2)",
     alignItems: "center",
     justifyContent: "center",
-    width: 160,
-    height: 200,
+    width: 120,
+    height: 150,
     backgroundColor: "#00BFFF",
     borderRadius: 80,
     overflow: "hidden",
     margin: 20
   },
   imageContainer: {
-    height: 200,
+    height: 150,
     width: 50,
     marginRight: 120
   },
   image: {
-    height: 200,
+    height: 150,
     width: 50,
     backgroundColor: "white"
   },
