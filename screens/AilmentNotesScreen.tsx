@@ -1,144 +1,77 @@
-import React, { Component } from "react";
-import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  Button
-} from "react-native";
-import t from "tcomb-form-native";
-import Camera from 'react-native-camera';
+import React from 'react';
+import { Text, View, TouchableOpacity, Button, Image } from 'react-native';
+import { Camera, Permissions, ImagePicker } from 'expo';
 
-export default class AilmentNotesScreen extends Component {
-  static navigationOptions = {
-    header: null,
-    title: "AilmentNotes"
+export default class AilmentNotes extends React.Component {
+  state = {
+    image: null,
+    hasCameraPermission: null,
+    type: Camera.Constants.Type.back,
   };
+
+  async componentDidMount() {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    this.setState({ hasCameraPermission: status === 'granted' });
+  }
 
   render() {
-    return <View style={styles.container}>
-      <ScrollView
-          style={styles.container}
-          contentContainerStyle={styles.contentContainer}
-        >
-          <View style={styles.logoContainer}>
-            <Image
-              source={require("../assets/images/logo.png")}
-              style={styles.logoImage}
+    const { hasCameraPermission, image } = this.state;
+    if (hasCameraPermission === null) {
+      return <View />;
+    } else if (hasCameraPermission === false) {
+      return <Text>No access to camera</Text>;
+    } else {
+      return (
+        <View style={{ flex: 1 }}>
+          <Camera style={{ flex: 1 }} type={this.state.type}>
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: 'transparent',
+                flexDirection: 'row',
+              }}>
+              <TouchableOpacity
+                style={{
+                  flex: 0.1,
+                  alignSelf: 'flex-end',
+                  alignItems: 'center',
+                }}
+                onPress={() => {
+                  this.setState({
+                    type: this.state.type === Camera.Constants.Type.back
+                      ? Camera.Constants.Type.front
+                      : Camera.Constants.Type.back,
+                  });
+                }}>
+                <Text
+                  style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
+                  {' '}Flip{' '}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </Camera>
+          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <Button
+              title="Pick an image from camera roll"
+              onPress={this._pickImage}
             />
-            <Text style={styles.mainHeaderText}>Pocket GP</Text>
+            {image &&
+              <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
           </View>
-
-          <View style={styles.formContainer}>
-            <Camera
-              ref={cam => {this.camera = cam}}
-              // style={styles.preview}
-              aspect={Camera.constants.Aspect.fill}
-            >
-              <Text style={styles.capture} onPress={this.takePicture.bind(this)}>
-                [CAPTURE]
-              </Text>
-            </Camera>
-            <Form
-              type={User}
-              ref={(patchSetting: object) => (this._form = patchSetting)}
-              options={options}
-            />
-            <Button title="Submit" onPress={this.handleSubmit} />
-          </View>
-        </ScrollView>
-      </View>
-  }
-
-  takePicture = () => {
-    this.camera
-      .capture()
-      .then((data) => console.log(data))
-      .catch(err => console.error(err));
-  }
-
-  handleSubmit = () => {
-    const value = this._form.getValue();
-  };
-}
-
-const User = t.struct({
-  'ailment description': t.maybe(t.String),
-});
-
-const Form = t.form.Form;
-
-const formStyles = {
-  ...Form.stylesheet,
-  controlLabel: {
-    normal: {
-      color: "#000",
-      fontSize: 18,
-      marginBottom: 7,
-      fontWeight: "600"
-    },
-    error: {
-      color: "red",
-      fontSize: 18,
-      marginBottom: 7,
-      fontWeight: "600"
+        </View>
+      );
     }
   }
-};
+  _pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+    });
 
-const options = {
-  stylesheet: formStyles
-};
+    console.log(result);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    marginTop: 50
-  },
-  contentContainer: {
-    paddingTop: 30
-  },
-  logoContainer: {
-    marginTop: 20,
-    marginBottom: 20
-  },
-  formContainer: {
-    justifyContent: "center",
-    marginTop: 10,
-    padding: 10
-  },
-  logoImage: {
-    position: "absolute",
-    top: 0,
-    width: 40,
-    height: 50,
-    resizeMode: "center",
-    marginLeft: 20
-  },
-  mainHeaderText: {
-    fontSize: 36,
-    color: "rgba(0, 0, 0, 1)",
-    lineHeight: 48,
-    textAlign: "right",
-    marginRight: 20
-  },
-  text: {
-    fontSize: 16,
-    color: "rgba(0, 0, 0, 1)",
-    lineHeight: 24,
-    textAlign: "center"
-  },
-  helpContainer: {
-    marginTop: 10,
-    alignItems: "center"
-  },
-  helpLink: {
-    paddingVertical: 15
-  },
-  helpLinkText: {
-    fontSize: 16,
-    color: "#00BFFF"
-  }
-});
+    if (!result.cancelled) {
+      this.setState({ image: result.uri });
+    }
+  };
+}

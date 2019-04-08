@@ -5,7 +5,8 @@ import {
   TouchableHighlight,
   Image,
   Text,
-  View
+  View,
+  ScrollView
 } from "react-native";
 import Header from "../components/Header";
 
@@ -16,13 +17,13 @@ export default class HomePageScreen extends React.Component {
   };
 
   render() {
-    console.log(this.props);
-    // this.props.navigation.dispatch(
-    //   NavigationActions.navigate({ routeName: "Settings" })
-    // );
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
+      <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.contentContainer}
+        >
         <Header />
         <View style={styles.content}>
           <TouchableOpacity
@@ -96,6 +97,7 @@ export default class HomePageScreen extends React.Component {
             </View>
           </TouchableOpacity>
         </View>
+        </ScrollView>
       </View>
     );
   }
@@ -117,6 +119,9 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     borderTopWidth: 3,
     borderColor: "rgba(61,176,215,0.2)"
+  },
+  contentContainer: {
+    paddingTop: 30
   },
   button: {
     borderWidth: 1,
