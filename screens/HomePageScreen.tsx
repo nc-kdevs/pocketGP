@@ -16,7 +16,8 @@ import SettingsStack from "../navigation/MainTabNavigator.js";
 
 export default class HomePageScreen extends React.Component {
   static navigationOptions = {
-    header: null
+    header: null,
+    title: "homePage"
   };
 
   render() {
@@ -32,7 +33,7 @@ export default class HomePageScreen extends React.Component {
           <TouchableOpacity
             style={styles.button}
             onClick={() => {
-              navigate("Settings");
+              navigate("SettingsStack", {});
             }}
           >
             <TouchableHighlight style={styles.imageContainer}>

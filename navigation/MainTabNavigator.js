@@ -2,18 +2,24 @@ import React from "react";
 import { Platform } from "react-native";
 import {
   createStackNavigator,
-  createBottomTabNavigator
+  createBottomTabNavigator,
+  StackNavigator
 } from "react-navigation";
 
 import TabBarIcon from "../components/TabBarIcon";
 import HomeScreen from "../screens/HomeScreen";
-import LoginScreen from '../screens/LoginScreen';
+import LoginScreen from "../screens/LoginScreen";
 import LinksScreen from "../screens/LinksScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import HomePageScreen from "../screens/HomePageScreen";
 
+// const AppNavigator = StackNavigator({
+//   HomeScreen: { screen: HomePageScreen },
+//   Settings: { screen: SettingsScreen }
+// });
+
 const HomePageStack = createStackNavigator({
-  Settings: HomePageScreen
+  HomePage: HomePageScreen
 });
 
 HomePageStack.navigationOptions = {
@@ -45,21 +51,17 @@ HomeStack.navigationOptions = {
 };
 
 const LoginStack = createStackNavigator({
-  Login: LoginScreen,
+  Login: LoginScreen
 });
 
 LoginStack.navigationOptions = {
-  tabBarLabel: 'Login',
+  tabBarLabel: "Login",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={
-        Platform.OS === 'ios'
-        ? 'ios-link'
-        : 'md-link'
-      }
+      name={Platform.OS === "ios" ? "ios-link" : "md-link"}
     />
-  ),
+  )
 };
 
 const LinksStack = createStackNavigator({
@@ -81,7 +83,7 @@ const SettingsStack = createStackNavigator({
 });
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Account',
+  tabBarLabel: "Account",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
