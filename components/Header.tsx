@@ -9,6 +9,7 @@ import {
   TouchableHighlight
 } from "react-native";
 import Navlinks from "./Navlinks";
+import Notifications from "./Notifications";
 
 export interface HeaderState {
   modalVisible: boolean;
@@ -36,8 +37,7 @@ class Header extends Component<null, HeaderState> {
           <Image
             style={styles.logo}
             source={{
-              uri:
-                "https://facebook.github.io/react-native/docs/assets/favicon.png"
+              uri: "http://i68.tinypic.com/ofy07b.png"
             }}
           />
         </View>
@@ -45,8 +45,7 @@ class Header extends Component<null, HeaderState> {
           <Image
             style={styles.notification}
             source={{
-              uri:
-                "https://facebook.github.io/react-native/docs/assets/favicon.png"
+              uri: "http://cdn.onlinewebfonts.com/svg/img_160048.png"
             }}
           />
           <TouchableOpacity
@@ -58,7 +57,7 @@ class Header extends Component<null, HeaderState> {
                 style={styles.hamburger}
                 source={{
                   uri:
-                    "https://image.shutterstock.com/image-vector/burger-menu-web-icon-vector-450w-1077487118.jpg"
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTW4CSfVQBlv7B0_kSE9_z_v6vg-kmGeYk6KOys3Nke_eB32mXhhw"
                 }}
               />
             </TouchableHighlight>
@@ -79,7 +78,8 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 24,
     height: 104,
-    flexDirection: "row"
+    flexDirection: "row",
+    backgroundColor: "grey"
   },
   container1: {
     alignItems: "flex-start",
@@ -88,12 +88,12 @@ const styles = StyleSheet.create({
   container2: {
     alignItems: "flex-end",
     flexDirection: "row",
-    marginLeft: 200,
+    marginLeft: 230,
     marginBottom: 30
   },
   logo: {
-    width: 80,
-    height: 80
+    width: 50,
+    height: 50
   },
   notification: {
     width: 50,

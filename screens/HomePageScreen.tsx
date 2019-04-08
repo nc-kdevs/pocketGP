@@ -12,15 +12,18 @@ import {
 } from "react-native";
 import { WebBrowser } from "expo";
 import Header from "../components/Header";
+import SettingsStack from "../navigation/MainTabNavigator.js";
 
 export default class HomePageScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
 
-  navigate = () => {};
-
   render() {
+    console.log(this.props);
+    // this.props.navigation.dispatch(
+    //   NavigationActions.navigate({ routeName: "Settings" })
+    // );
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
@@ -28,10 +31,18 @@ export default class HomePageScreen extends React.Component {
         <View style={styles.content}>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigate("Home")}
+            onClick={() => {
+              navigate("Settings");
+            }}
           >
             <TouchableHighlight style={styles.imageContainer}>
-              <Image style={styles.image} source={{}} />
+              <Image
+                style={styles.image}
+                source={{
+                  uri:
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWhCyDCBjeUbP6E6XtDZqiU6P5mK8BntDB1OpFoI5YqwMeBsHt"
+                }}
+              />
             </TouchableHighlight>
             <View style={styles.textContainer}>
               <Text style={styles.innertext}>Ailment Notes</Text>
@@ -42,7 +53,13 @@ export default class HomePageScreen extends React.Component {
             onPress={() => navigate("Home")}
           >
             <TouchableHighlight style={styles.imageContainer}>
-              <Image style={styles.image} source={{}} />
+              <Image
+                style={styles.image}
+                source={{
+                  uri:
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6-c6GABdTIfS6Rm1EIZdB8FlyGomnbrYSKNRKHvns2S9WVQroKQ"
+                }}
+              />
             </TouchableHighlight>
             <View style={styles.textContainer}>
               <Text style={styles.innertext}>Analytics</Text>
@@ -53,7 +70,13 @@ export default class HomePageScreen extends React.Component {
             onPress={() => navigate("Home")}
           >
             <TouchableHighlight style={styles.imageContainer}>
-              <Image style={styles.image} source={{}} />
+              <Image
+                style={styles.image}
+                source={{
+                  uri:
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_BoyG4HqSBqLQjOyCDi5iJZ8o3jNPXBsd9ckzt07oHtJVLrp6"
+                }}
+              />
             </TouchableHighlight>
             <View style={styles.textContainer}>
               <Text style={styles.innertext}>Treatment Plan</Text>
@@ -64,7 +87,13 @@ export default class HomePageScreen extends React.Component {
             onPress={() => navigate("Home")}
           >
             <TouchableHighlight style={styles.imageContainer}>
-              <Image style={styles.image} source={{}} />
+              <Image
+                style={styles.image}
+                source={{
+                  uri:
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTM3QB7ooA8Iaf7soYlCuYcoDSo4liUaJ5YGpP0JoG3pbm3pnO4xA"
+                }}
+              />
             </TouchableHighlight>
             <View style={styles.textContainer}>
               <Text style={styles.innertext}>Account Settings</Text>
@@ -88,7 +117,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
-    backgroundColor: "rgba(61,176,215,0.1)",
+    backgroundColor: "white",
     overflow: "hidden",
     borderTopWidth: 3,
     borderColor: "rgba(61,176,215,0.2)"
@@ -100,7 +129,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 160,
     height: 200,
-    backgroundColor: "rgba(184,76,53,1)",
+    backgroundColor: "#00BFFF",
     borderRadius: 80,
     overflow: "hidden",
     margin: 20
