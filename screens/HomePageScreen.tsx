@@ -1,18 +1,13 @@
 import React from "react";
 import {
-  Platform,
   StyleSheet,
-  Button,
   TouchableOpacity,
   TouchableHighlight,
   Image,
   Text,
-  View,
-  RecyclerViewBackedScrollView
+  View
 } from "react-native";
-import { WebBrowser } from "expo";
 import Header from "../components/Header";
-import SettingsStack from "../navigation/MainTabNavigator.js";
 
 export default class HomePageScreen extends React.Component {
   static navigationOptions = {
@@ -32,8 +27,8 @@ export default class HomePageScreen extends React.Component {
         <View style={styles.content}>
           <TouchableOpacity
             style={styles.button}
-            onClick={() => {
-              navigate("SettingsStack", {});
+            onPress={() => {
+              navigate("AilmentNotes");
             }}
           >
             <TouchableHighlight style={styles.imageContainer}>
@@ -85,7 +80,7 @@ export default class HomePageScreen extends React.Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigate("Home")}
+            onPress={() => navigate("Settings")}
           >
             <TouchableHighlight style={styles.imageContainer}>
               <Image

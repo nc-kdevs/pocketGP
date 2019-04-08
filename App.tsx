@@ -2,8 +2,8 @@ import React from "react";
 import { Platform, StatusBar, StyleSheet, View } from "react-native";
 import { AppLoading, Asset, Font, Icon } from "expo";
 import AppNavigator from "./navigation/AppNavigator";
-import HomePageScreen from "./screens/HomePageScreen";
-import SettingsScreen from "./screens/SettingsScreen";
+// import HomePageScreen from "./screens/HomePageScreen";
+// import SettingsScreen from "./screens/SettingsScreen";
 
 export default class App extends React.Component {
   state = {

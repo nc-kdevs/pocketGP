@@ -2,8 +2,7 @@ import React from "react";
 import { Platform } from "react-native";
 import {
   createStackNavigator,
-  createBottomTabNavigator,
-  StackNavigator
+  createBottomTabNavigator
 } from "react-navigation";
 
 import TabBarIcon from "../components/TabBarIcon";
@@ -12,11 +11,11 @@ import LoginScreen from "../screens/LoginScreen";
 import LinksScreen from "../screens/LinksScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import HomePageScreen from "../screens/HomePageScreen";
+import AilmentNotesScreen from '../screens/AilmentNotesScreen';
 
-// const AppNavigator = StackNavigator({
-//   HomeScreen: { screen: HomePageScreen },
-//   Settings: { screen: SettingsScreen }
-// });
+const AilmentNotesStack = createStackNavigator({
+  AilmentNotes: AilmentNotesScreen
+});
 
 const HomePageStack = createStackNavigator({
   HomePage: HomePageScreen
@@ -97,5 +96,6 @@ export default createBottomTabNavigator({
   HomeStack,
   LoginStack,
   LinksStack,
-  SettingsStack
+  SettingsStack,
+  AilmentNotesStack
 });
