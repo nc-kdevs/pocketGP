@@ -6,23 +6,18 @@ import {
 } from "react-navigation";
 
 import TabBarIcon from "../components/TabBarIcon";
-import HomeScreen from "../screens/HomeScreen";
 import LoginScreen from "../screens/LoginScreen";
 import LinksScreen from "../screens/LinksScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import HomePageScreen from "../screens/HomePageScreen";
 import AilmentNotesScreen from '../screens/AilmentNotesScreen';
 
-const AilmentNotesStack = createStackNavigator({
-  AilmentNotes: AilmentNotesScreen
-});
-
 const HomePageStack = createStackNavigator({
   HomePage: HomePageScreen
 });
 
 HomePageStack.navigationOptions = {
-  tabBarLabel: "HomePage",
+  tabBarLabel: "Home",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -31,12 +26,12 @@ HomePageStack.navigationOptions = {
   )
 };
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen
+const AilmentNotesStack = createStackNavigator({
+  AilmentNotes: AilmentNotesScreen
 });
 
-HomeStack.navigationOptions = {
-  tabBarLabel: "Home",
+AilmentNotesStack.navigationOptions = {
+  tabBarLabel: "Notes",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -63,12 +58,26 @@ LoginStack.navigationOptions = {
   )
 };
 
+const TreatmentStack = createStackNavigator({
+  Treatment: LinksScreen
+});
+
+TreatmentStack.navigationOptions = {
+  tabBarLabel: "Plan",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === "ios" ? "ios-link" : "md-link"}
+    />
+  )
+};
+
 const LinksStack = createStackNavigator({
   Links: LinksScreen
 });
 
 LinksStack.navigationOptions = {
-  tabBarLabel: "Links",
+  tabBarLabel: "Analytics",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -86,16 +95,18 @@ SettingsStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === "ios" ? "ios-options" : "md-options"}
+      name={Platform.OS === "ios"
+      ? `ios-information-circle${focused ? "" : "-outline"}`
+      : "md-information-circle"}
     />
   )
 };
 
 export default createBottomTabNavigator({
   HomePageStack,
-  HomeStack,
+  AilmentNotesStack,
+  TreatmentStack,
   LoginStack,
   LinksStack,
-  SettingsStack,
-  AilmentNotesStack
+  SettingsStack
 });
