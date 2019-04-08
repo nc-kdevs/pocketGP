@@ -16,6 +16,10 @@ export default class LoginScreen extends Component {
     header: null,
   };
 
+  state = {
+    isNewUser: false,
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -25,16 +29,24 @@ export default class LoginScreen extends Component {
           
           <View style={styles.logoContainer}>
             <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/logo.png')
-                  : require('../assets/images/logo.png')
-              }
+              source={require('../assets/images/logo.png')}
               style={styles.logoImage}
             />
           </View>
 
-          <View style={styles.formContainer}>
+          {this.state.isNewUser
+            ? <View style={styles.formContainer}>
+            <Form
+              type={SignUp}
+              ref={(signUp: object) => this._form = signUp}
+              options={options}
+            />
+            <Button
+              title="Join"
+              onPress={this.handleSignUp}
+            />
+          </View>
+            : <View style={styles.formContainer}>
             <Form
               type={User}
               ref={(login: object) => this._form = login}
@@ -42,39 +54,58 @@ export default class LoginScreen extends Component {
             />
             <Button
               title="Sign In"
-              onPress={this.handleSubmit}
+              onPress={this.handleSignIn}
             />
-          </View>
-
-          <Text style={styles.text}>Or</Text>
-
-          <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>SIGN UP</Text>
-            </TouchableOpacity>
-          </View>
+            <Text style={styles.text}>Or</Text>
+            <View style={styles.helpContainer}>
+              <TouchableOpacity onPress={this.toggleSignUp} style={styles.helpLink}>
+                <Text style={styles.helpLinkText}>SIGN UP</Text>
+              </TouchableOpacity>
+            </View>
+          </View>}
+          
         </ScrollView>
 
       </View>
     );
   }
 
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-    );
+  toggleSignUp = () => {
+    this.setState({ isNewUser: true })
   };
 
-  handleSubmit = () => {
+  handleSignIn = () => {
     // use ref to get the form value
     const value = this._form.getValue();
     console.log('value: ', value);  
   }
+
+  handleSignUp = () => {
+    // use ref to get the form value
+    const value = this._form.getValue();
+    console.log('value: ', value);  
+  }
+
 }
 
 const User = t.struct({
   username: t.String,
   password: t.String,
+});
+const SignUp = t.struct({
+  username: t.String,
+  password: t.String,
+  firstname: t.String,
+  surname: t.String,
+  surgery: t.String,
+  telephone: t.String,
+  email: t.String,
+  'address Line 1': t.String,
+  'address Line 2': t.maybe(t.String),
+  'address Town': t.String,
+  'post Code': t.String,
+  emergencyContact: t.String,
+  'general medical history': t.maybe(t.String),
 });
 
 const Form = t.form.Form;
@@ -94,7 +125,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    marginTop: 50,
+    marginTop: 10,
   },
   contentContainer: {
     paddingTop: 30,

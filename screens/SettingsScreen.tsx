@@ -15,7 +15,7 @@ export default class SettingsScreen extends Component {
   };
 
   state = {
-    isPatient: true,
+    isPatient: false,
   }
 
   render() {
