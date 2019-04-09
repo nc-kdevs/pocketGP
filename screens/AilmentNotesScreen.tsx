@@ -1,10 +1,10 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, Button, Image, StyleSheet, ScrollView } from 'react-native';
+import { Text, View, TouchableOpacity, Button, Image, StyleSheet, ScrollView, KeyboardAvoidingViewBase } from 'react-native';
 import { Camera, Permissions } from 'expo';
 import t from "tcomb-form-native";
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://pocket-gp.herokuapp.com/api';
+// axios.defaults.baseURL = 'https://pocket-gp.herokuapp.com/api';
 
 export default class AilmentNotes extends React.Component {
   state = {
@@ -89,6 +89,7 @@ export default class AilmentNotes extends React.Component {
     console.log("value: ", value);
     const ailmentObj = {
       image,
+      // patient_username: 'KDEVS',
       ailment_type: value.type,
       ailment_name: value.name,
       ailment_description: value.description,
@@ -96,7 +97,10 @@ export default class AilmentNotes extends React.Component {
       treatment_plan: value.treatment,
     };
     console.log(ailmentObj)
-    return axios.post('/patients/KDEVS/ailments', ailmentObj).then(({ data }) => console.log(data))
+    return axios
+    .post('https://pocket-gp.herokuapp.com/api/patients/KDEVS/ailments', ailmentObj)
+    .then(({ data }) => console.log(data, '<-- data'))
+    .catch(err => console.log(err, '<-- error'))
   };
 
   cancelSnap = () => {
@@ -111,10 +115,9 @@ export default class AilmentNotes extends React.Component {
       };
       this.camera.takePictureAsync(options)
         .then(photo => {
-          console.log(photo.height, photo.width)
           photo.exif.Orientation = 1;
           this.setState({ image: photo.uri });
-        });
+        })
     }
   }
 }
