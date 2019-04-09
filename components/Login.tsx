@@ -81,7 +81,8 @@ export default class LoginScreen extends Component {
   handleSignUp = () => {
     // use ref to get the form value
     const value = this._form.getValue();
-    console.log('value: ', value);  
+    console.log('value: ', value);
+    return null 
   }
 
 }
