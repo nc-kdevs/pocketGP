@@ -1,5 +1,4 @@
 import React from 'react';
-import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import {
   Image,
   Platform,
@@ -23,20 +22,44 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
-        <Text style={styles.getStartedText}>Calendar</Text>
-        <Calendar
-        // Collection of dates that have to be marked. Default = {}
-        markedDates={{
-          '2012-05-16': {selected: true, marked: true, selectedColor: 'blue'},
-          '2012-05-17': {marked: true},
-          '2012-05-18': {marked: true, dotColor: 'red', activeOpacity: 0},
-          '2012-05-19': {disabled: true, disableTouchEvent: true}
-        }}
-      />
+            <Image
+              source={
+                __DEV__
+                  ? require('../assets/images/robot-dev.png')
+                  : require('../assets/images/robot-prod.png')
+              }
+              style={styles.welcomeImage}
+            />
           </View>
 
+          <View style={styles.getStartedContainer}>
+            {this._maybeRenderDevelopmentModeWarning()}
 
+            <Text style={styles.getStartedText}>Get started by opening</Text>
+
+            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+              <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
+            </View>
+
+            <Text style={styles.getStartedText}>
+              Will this work now?
+            </Text>
+          </View>
+
+          <View style={styles.helpContainer}>
+            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
+              <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
+
+        <View style={styles.tabBarInfoContainer}>
+          <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
+
+          <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
+            <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
+          </View>
+        </View>
       </View>
     );
   }
