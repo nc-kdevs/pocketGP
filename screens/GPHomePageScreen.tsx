@@ -8,7 +8,9 @@ import {
   Text,
   Button,
   TouchableOpacity,
-  TouchableHighlight
+  TouchableHighlight,
+  Modal,
+  Alert
 } from "react-native";
 import {
   Table,
@@ -24,7 +26,8 @@ export default class GPHomePageScreen extends Component {
     super(props);
     this.state = {
       tableHead: ["Time", "Description"],
-      tableData: []
+      tableData: [],
+      modalVisible: false
     };
   }
 
@@ -60,8 +63,9 @@ export default class GPHomePageScreen extends Component {
         data.time,
 
         <TouchableOpacity
-        // style={styles.button}
-        // onPress={() => navigate("Home")}
+          onPress={() => this.setModalVisible()}
+          // style={styles.button}
+          // onPress={() => navigate("Home")}
         >
           <TouchableHighlight>
             <Image
@@ -88,6 +92,10 @@ export default class GPHomePageScreen extends Component {
   //   if (index !== 3) return;
   //   console.log(data);
   // };
+
+  setModalVisible(visible) {
+    this.setState({ modalVisible: visible });
+  }
 
   render() {
     return (
@@ -133,6 +141,38 @@ export default class GPHomePageScreen extends Component {
               />
             </TableWrapper>
           </Table>
+        </View>
+        <View style={{ marginTop: 22 }}>
+          <Modal
+            animationType="slide"
+            transparent={false}
+            visible={this.state.modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+            }}
+          >
+            <View style={{ marginTop: 22 }}>
+              <View>
+                <Text>Hello World!</Text>
+
+                <TouchableHighlight
+                  onPress={() => {
+                    this.setModalVisible(!this.state.modalVisible);
+                  }}
+                >
+                  <Text>Hide Modal</Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+          </Modal>
+
+          <TouchableHighlight
+            onPress={() => {
+              this.setModalVisible(true);
+            }}
+          >
+            <Text>Show Modal</Text>
+          </TouchableHighlight>
         </View>
       </View>
     );
