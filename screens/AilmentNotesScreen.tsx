@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, Button, Image, StyleSheet, ScrollView } from 'react-native';
-import { Camera, Permissions, ImagePicker } from 'expo';
+import { Camera, Permissions } from 'expo';
+import t from "tcomb-form-native";
 
 export default class AilmentNotes extends React.Component {
   state = {
@@ -35,6 +36,15 @@ export default class AilmentNotes extends React.Component {
             />
             <Text style={styles.mainHeaderText}>Pocket GP</Text>
           </View>
+
+          <View style={styles.formContainer}>
+            <Form
+              type={AilmentForm}
+              ref={(patchSetting: object) => (this._form = patchSetting)}
+              options={options}
+            />
+          <Text style={styles.cameraText}>If your ailment is visual, please use the camera below.</Text>
+          <Text style={styles.cameraText}>This will help keep you GP up to date with how the ailment is progressing</Text>
           {image
           ? <View>
               <Image source={{ uri: image }} style={styles.camera} />
@@ -61,11 +71,19 @@ export default class AilmentNotes extends React.Component {
               <Image source={require("../assets/images/camera-icon.png")} style={styles.cameraImage} />
             </TouchableOpacity>
           </View>}
+          <Button title="Submit Changes" onPress={this.handleSubmit} />
+          </View>
           </ScrollView>
         </View>
       );
     }
   }
+
+  handleSubmit = () => {
+    // use ref to get the form value
+    const value = this._form.getValue();
+    console.log("value: ", value);
+  };
 
   cancelSnap = () => {
     this.setState({ image: null })
@@ -84,6 +102,49 @@ export default class AilmentNotes extends React.Component {
   }
 }
 
+const AilmentForm = t.struct({
+  type: t.String,
+  name: t.String,
+  description: t.String,
+  prescription: t.maybe(t.String),
+  treatment: t.maybe(t.String)
+});
+
+const Form = t.form.Form;
+
+const formStyles = {
+  ...Form.stylesheet,
+  controlLabel: {
+    normal: {
+      color: "#000",
+      fontSize: 18,
+      marginBottom: 7,
+      fontWeight: "600"
+    },
+    error: {
+      color: "red",
+      fontSize: 18,
+      marginBottom: 7,
+      fontWeight: "600"
+    }
+  }
+};
+
+const options = {
+  fields: {
+    type: {
+      error: "Please give type of ailment (e.g rash, bruise, cough...)"
+    },
+    name: {
+      error: "Please give name of ailment, if unknown please put 'unknown'"
+    },
+    description: {
+      error: "a short description of how you feel"
+    }
+  },
+  stylesheet: formStyles
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -92,9 +153,12 @@ const styles = StyleSheet.create({
   camera: {
     flex: 1,
     height: 200,
-    margin: 20,
+    margin: 0,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  cameraText: {
+    textAlign: 'center'
   },
   contentContainer: {
     paddingTop: 30
@@ -120,6 +184,8 @@ const styles = StyleSheet.create({
     marginLeft: 20
   },
   cameraImage: {
+    marginBottom: 10,
+    padding: 0,
     height: 50,
     width: 50
   },
