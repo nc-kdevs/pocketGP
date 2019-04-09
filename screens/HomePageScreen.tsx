@@ -8,9 +8,8 @@ import {
   View,
   ScrollView
 } from "react-native";
-import Header from "../components/Header";
 import LoginScreen from "../components/Login";
-import { getUserByUsername } from "../assets/utils.js"
+import { getUserByUsername, getSurgeryByUsername } from "../assets/utils.js"
 
 export default class HomePageScreen extends React.Component {
   static navigationOptions = {
@@ -19,12 +18,13 @@ export default class HomePageScreen extends React.Component {
   };
 
   state = {
+    isPatient: true,
     isLoggedIn: false,
     user: {},
   }
 
   render() {
-    console.log(this.state.isLoggedIn, '<-- state', this.state.user, '<-- user')
+    console.log(this.state.isLoggedIn, '<-- logged in', this.state.user, '<-- user', this.state.isPatient, '<-- is patient?')
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
@@ -124,10 +124,27 @@ export default class HomePageScreen extends React.Component {
     const username = value.username;
     const password = value.password;
     getUserByUsername(username)
-    .then((patient: Object) => {
-      if (patient.patient_password === password) {
-        this.setState({ user: patient, isLoggedIn: true })}
+    .then((newPatient: Object) => {
+      if (newPatient.patient_password === password) {
+        this.setState({
+          user: newPatient,
+          isLoggedIn: true,
+          isPatient: true
+        })
+      }
     })
+    .catch(() => 'sorry, not found')
+    getSurgeryByUsername(username)
+    .then((newSurgery: Object) => {
+      if (newSurgery.surgery_password === password) {
+        this.setState({
+          user: newSurgery,
+          isLoggedIn: true,
+          isPatient: false
+        })
+      }
+    })
+    .catch(() => 'sorry, not found')
   }
 
 }
