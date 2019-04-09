@@ -6,7 +6,6 @@ import {
 } from "react-navigation";
 
 import TabBarIcon from "../components/TabBarIcon";
-import LoginScreen from "../screens/LoginScreen";
 import LinksScreen from "../screens/LinksScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import HomePageScreen from "../screens/HomePageScreen";
@@ -44,40 +43,12 @@ AilmentNotesStack.navigationOptions = {
   )
 };
 
-const LoginStack = createStackNavigator({
-  Login: LoginScreen
-});
-
-LoginStack.navigationOptions = {
-  tabBarLabel: "Login",
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === "ios" ? "ios-link" : "md-link"}
-    />
-  )
-};
-
 const TreatmentStack = createStackNavigator({
   Treatment: LinksScreen
 });
 
 TreatmentStack.navigationOptions = {
   tabBarLabel: "Plan",
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === "ios" ? "ios-link" : "md-link"}
-    />
-  )
-};
-
-const LinksStack = createStackNavigator({
-  Links: LinksScreen
-});
-
-LinksStack.navigationOptions = {
-  tabBarLabel: "Analytics",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -106,7 +77,5 @@ export default createBottomTabNavigator({
   HomePageStack,
   AilmentNotesStack,
   TreatmentStack,
-  LoginStack,
-  LinksStack,
   SettingsStack
 });

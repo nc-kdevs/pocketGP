@@ -8,7 +8,6 @@ import {
   View,
   Button,
 } from 'react-native';
-import { WebBrowser } from 'expo';
 import t from 'tcomb-form-native';
 
 export default class LoginScreen extends Component {
@@ -127,9 +126,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     marginTop: 10,
+    
   },
   contentContainer: {
-    paddingTop: 30,
+    padding: 30,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   logoContainer: {
     alignItems: 'center',
@@ -140,6 +142,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 10,
     padding: 10,
+    width: 250,
     backgroundColor: '#ffffff',
   },
   logoImage: {

@@ -9,12 +9,17 @@ import {
   ScrollView
 } from "react-native";
 import Header from "../components/Header";
+import LoginScreen from "../components/Login";
 
 export default class HomePageScreen extends React.Component {
   static navigationOptions = {
     header: null,
     title: "homePage"
   };
+
+  state = {
+    isLoggedIn: true,
+  }
 
   render() {
     const { navigate } = this.props.navigation;
@@ -24,6 +29,8 @@ export default class HomePageScreen extends React.Component {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
+      {this.state.isLoggedIn
+      ? <View>  
         <View style={styles.logoContainer}>
             <Image
               source={require("../assets/images/logo.png")}
@@ -102,7 +109,9 @@ export default class HomePageScreen extends React.Component {
               <Text style={styles.innertext}>Account Settings</Text>
             </View>
           </TouchableOpacity>
-        </View>
+          </View>
+          </View>
+          : <LoginScreen />}
         </ScrollView>
       </View>
     );
@@ -115,7 +124,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     flex: 1,
-    flexWrap: "wrap"
+    flexWrap: "wrap",
+    textAlign: 'center'
   },
   content: {
     flex: 1,
@@ -125,7 +135,8 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   contentContainer: {
-    paddingTop: 30
+    paddingTop: 30,
+    alignItems: 'center'
   },
   logoContainer: {
     marginTop: 0,
