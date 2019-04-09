@@ -8,7 +8,6 @@ import {
   View,
   Button,
 } from 'react-native';
-import { WebBrowser } from 'expo';
 import t from 'tcomb-form-native';
 
 export default class LoginScreen extends Component {
@@ -21,7 +20,8 @@ export default class LoginScreen extends Component {
   }
 
   render() {
-    console.log('hello there')
+    const { signIn } = this.props;
+    console.log(this.props)
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -55,7 +55,10 @@ export default class LoginScreen extends Component {
             />
             <Button
               title="Sign In"
-              onPress={this.handleSignIn}
+              onPress={() => {
+                const value = this._form.getValue()
+                signIn(value)
+              }}
             />
             <Text style={styles.text}>Or</Text>
             <View style={styles.helpContainer}>
@@ -74,12 +77,6 @@ export default class LoginScreen extends Component {
   toggleSignUp = () => {
     this.setState({ isNewUser: true })
   };
-
-  handleSignIn = () => {
-    // use ref to get the form value
-    const value = this._form.getValue();
-    console.log('value: ', value);  
-  }
 
   handleSignUp = () => {
     // use ref to get the form value
@@ -117,6 +114,8 @@ const options = {
       error: 'Please Try Again'
     },
     password: {
+      password: true,
+      secureTextEntry: true,
       error: 'Please Try Again'
     },
   },
@@ -126,20 +125,27 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    marginTop: 10,
+    marginTop: 0,
+    
   },
   contentContainer: {
-    paddingTop: 30,
+    paddingTop: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
+    paddingBottom: 10,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   logoContainer: {
     alignItems: 'center',
-    marginTop: 20,
-    marginBottom: 20,
+    marginTop: 0,
+    marginBottom: 0,
   },
   formContainer: {
     justifyContent: 'center',
     marginTop: 10,
     padding: 10,
+    width: 250,
     backgroundColor: '#ffffff',
   },
   logoImage: {
@@ -164,7 +170,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   helpLink: {
-    paddingVertical: 15,
+    paddingTop: 10,
+    paddingBottom: 40,
+    margin: 20,
   },
   helpLinkText: {
     fontSize: 16,

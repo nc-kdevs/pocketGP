@@ -139,19 +139,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    marginTop: 50
   },
   contentContainer: {
     paddingTop: 30
-  },
-  logoContainer: {
-    marginTop: 20,
-    marginBottom: 20
   },
   formContainer: {
     justifyContent: "center",
     marginTop: 10,
     padding: 10
+  },
+  logoContainer: {
+    marginTop: 0,
+    padding: 10,
+    marginBottom: 10,    
+    borderBottomWidth: 3,
+    borderColor: "rgba(61,176,215,0.2)"
   },
   logoImage: {
     position: "absolute",

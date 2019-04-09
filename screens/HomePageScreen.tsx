@@ -9,6 +9,8 @@ import {
   ScrollView
 } from "react-native";
 import Header from "../components/Header";
+import LoginScreen from "../components/Login";
+import { getUserByUsername } from "../assets/utils.js"
 
 export default class HomePageScreen extends React.Component {
   static navigationOptions = {
@@ -16,7 +18,13 @@ export default class HomePageScreen extends React.Component {
     title: "homePage"
   };
 
+  state = {
+    isLoggedIn: true,
+    user: {},
+  }
+
   render() {
+    console.log(this.state.isLoggedIn, this.state.user)
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
@@ -24,7 +32,15 @@ export default class HomePageScreen extends React.Component {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
-        <Header />
+      {this.state.isLoggedIn
+      ? <View>  
+        <View style={styles.logoContainer}>
+            <Image
+              source={require("../assets/images/logo.png")}
+              style={styles.logoImage}
+            />
+            <Text style={styles.mainHeaderText}>Pocket GP</Text>
+          </View>
         <View style={styles.content}>
           <TouchableOpacity
             style={styles.button}
@@ -96,20 +112,31 @@ export default class HomePageScreen extends React.Component {
               <Text style={styles.innertext}>Account Settings</Text>
             </View>
           </TouchableOpacity>
-        </View>
+          </View>
+          </View>
+          : <LoginScreen signIn={this.handleSignIn} />}
         </ScrollView>
       </View>
     );
   }
 
-  onPressLearnMore = () => {};
+  handleSignIn = (value: Object) => {
+    const username = value.username;
+    const password = value.password;
+    getUserByUsername(username)
+    .then((patient: Object) => {
+      if (patient.patient_password === password) this.setState({ user: patient, isLoggedin: true })
+    })
+  }
+
 }
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     flex: 1,
-    flexWrap: "wrap"
+    flexWrap: "wrap",
+    textAlign: 'center'
   },
   content: {
     flex: 1,
@@ -117,31 +144,52 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     backgroundColor: "white",
     overflow: "hidden",
-    borderTopWidth: 3,
-    borderColor: "rgba(61,176,215,0.2)"
   },
   contentContainer: {
-    paddingTop: 30
+    paddingTop: 30,
+    alignItems: 'center'
+  },
+  logoContainer: {
+    marginTop: 0,
+    padding: 10,
+    marginBottom: 10,    
+    borderBottomWidth: 3,
+    borderColor: "rgba(61,176,215,0.2)"
+  },
+  logoImage: {
+    position: "absolute",
+    top: 0,
+    width: 40,
+    height: 50,
+    resizeMode: "center",
+    marginLeft: 20
+  },
+  mainHeaderText: {
+    fontSize: 36,
+    color: "rgba(0, 0, 0, 1)",
+    lineHeight: 48,
+    textAlign: "right",
+    marginRight: 20
   },
   button: {
     borderWidth: 1,
     borderColor: "rgba(0,0,0,0.2)",
     alignItems: "center",
     justifyContent: "center",
-    width: 160,
-    height: 200,
+    width: 120,
+    height: 150,
     backgroundColor: "#00BFFF",
     borderRadius: 80,
     overflow: "hidden",
     margin: 20
   },
   imageContainer: {
-    height: 200,
+    height: 150,
     width: 50,
     marginRight: 120
   },
   image: {
-    height: 200,
+    height: 150,
     width: 50,
     backgroundColor: "white"
   },
