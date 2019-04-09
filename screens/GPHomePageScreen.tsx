@@ -5,7 +5,10 @@ import {
   View,
   TextInput,
   Image,
-  Text
+  Text,
+  Button,
+  TouchableOpacity,
+  TouchableHighlight
 } from "react-native";
 import {
   Table,
@@ -14,33 +17,77 @@ import {
   Rows,
   Col
 } from "react-native-table-component";
+// import { Cell } from "react-native-cell-components";
 
 export default class GPHomePageScreen extends Component {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      tableHead: ["Time", "Description"],
+      tableData: []
+    };
+  }
+
+  componentDidMount() {
+    this.getData();
+  }
   static navigationOptions = {
     header: null,
     title: "GPhomePage"
   };
 
-  state = {
-    tableHead: ["Time", "Description"],
-    // tableTitle: ["Title", "Title2", "Title3", "Title4"],
-    tableData: [
-      ["", ""],
-      ["", ""],
-      ["", ""],
-      ["", ""],
-      ["", ""],
-      ["", ""],
-      ["", ""],
-      ["", ""],
-      ["", ""],
-      ["", ""],
-      ["", ""],
-      ["", ""],
-      ["", ""],
-      ["", ""]
-    ]
+  getData = (): void => {
+    //retrieve data
+    var retrievedTable = [
+      {
+        time: "12.01",
+        description: "This is the descriptiom"
+      },
+      {
+        time: "12.01",
+        description: "This is the descriptiom"
+      },
+      {
+        time: "12.01",
+        description: "This is the descriptiom"
+      }
+    ];
+
+    let newTableState: Array<{}> = [];
+
+    retrievedTable.forEach(data => {
+      newTableState.push([
+        data.time,
+
+        <TouchableOpacity
+        // style={styles.button}
+        // onPress={() => navigate("Home")}
+        >
+          <TouchableHighlight>
+            <Image
+              // style={styles.image}
+              source={{
+                uri:
+                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6-c6GABdTIfS6Rm1EIZdB8FlyGomnbrYSKNRKHvns2S9WVQroKQ"
+              }}
+            />
+          </TouchableHighlight>
+          <View>
+            <Text>{data.description}</Text>
+          </View>
+        </TouchableOpacity>
+      ]);
+    });
+
+    this.setState({
+      tableData: newTableState
+    });
   };
+
+  // _showData = (data, index) => {
+  //   if (index !== 3) return;
+  //   console.log(data);
+  // };
 
   render() {
     return (
@@ -82,6 +129,7 @@ export default class GPHomePageScreen extends Component {
                 flexArr={[1, 4]}
                 style={styles.row}
                 textStyle={styles.text}
+                onPress={() => this.showNotes}
               />
             </TableWrapper>
           </Table>
@@ -89,6 +137,10 @@ export default class GPHomePageScreen extends Component {
       </View>
     );
   }
+
+  showNotes = () => {
+    console.log("Hello");
+  };
 }
 
 const styles = StyleSheet.create({
@@ -146,7 +198,7 @@ const styles = StyleSheet.create({
   },
   head: {
     height: 40,
-    backgroundColor: "#f1f8ff"
+    backgroundColor: "#00BFFF"
   },
   wrapper: {
     flexDirection: "row"
@@ -162,3 +214,19 @@ const styles = StyleSheet.create({
     textAlign: "center"
   }
 });
+
+{
+  /* {tableData.map((data, i) => (
+                <TableWrapper key={i} style={styles.row}>
+                  {data.map((cell, j) => (
+                    <TouchableOpacity
+                      key={j}
+                      style={styles.cell}
+                      onPress={() => this._showData(cell, j)}
+                    >
+                      <Cell data={cell} textStyle={styles.text} />
+                    </TouchableOpacity>
+                  ))}
+                </TableWrapper>
+              ))} */
+}
