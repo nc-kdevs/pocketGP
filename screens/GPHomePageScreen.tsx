@@ -7,11 +7,39 @@ import {
   Image,
   Text
 } from "react-native";
+import {
+  Table,
+  TableWrapper,
+  Row,
+  Rows,
+  Col
+} from "react-native-table-component";
 
 export default class GPHomePageScreen extends Component {
   static navigationOptions = {
     header: null,
     title: "GPhomePage"
+  };
+
+  state = {
+    tableHead: ["Time", "Description"],
+    // tableTitle: ["Title", "Title2", "Title3", "Title4"],
+    tableData: [
+      ["", ""],
+      ["", ""],
+      ["", ""],
+      ["", ""],
+      ["", ""],
+      ["", ""],
+      ["", ""],
+      ["", ""],
+      ["", ""],
+      ["", ""],
+      ["", ""],
+      ["", ""],
+      ["", ""],
+      ["", ""]
+    ]
   };
 
   render() {
@@ -34,6 +62,30 @@ export default class GPHomePageScreen extends Component {
             multiline={true}
           />
         </View>
+        <View style={styles.tableContainer}>
+          <Table>
+            <Row
+              data={this.state.tableHead}
+              flexArr={[1, 4]}
+              style={styles.head}
+              textStyle={styles.text}
+            />
+            <TableWrapper style={styles.wrapper}>
+              <Col
+                data={this.state.tableTitle}
+                style={styles.title}
+                heightArr={[28, 28]}
+                textStyle={styles.text}
+              />
+              <Rows
+                data={this.state.tableData}
+                flexArr={[1, 4]}
+                style={styles.row}
+                textStyle={styles.text}
+              />
+            </TableWrapper>
+          </Table>
+        </View>
       </View>
     );
   }
@@ -45,6 +97,7 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "ios" ? 20 : 0,
     margin: 10,
     marginTop: 15,
+    marginBottom: 0,
     flexDirection: "column",
     flexWrap: "wrap"
   },
@@ -83,9 +136,29 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: "#FFFFFF",
     height: 150
+  },
+  tableContainer: {
+    flex: 1,
+    padding: 16,
+    paddingTop: 10,
+    backgroundColor: "#fff",
+    marginBottom: 280
+  },
+  head: {
+    height: 40,
+    backgroundColor: "#f1f8ff"
+  },
+  wrapper: {
+    flexDirection: "row"
+  },
+  title: {
+    flex: 1,
+    backgroundColor: "#f6f8fa"
+  },
+  row: {
+    height: 28
+  },
+  text: {
+    textAlign: "center"
   }
 });
-// static navigationOptions = {
-//   header: null,
-//   title: "GPhomePage"
-// };
