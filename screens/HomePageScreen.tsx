@@ -18,7 +18,7 @@ export default class HomePageScreen extends React.Component {
   };
 
   state = {
-    isLoggedIn: true,
+    isLoggedIn: false,
   }
 
   render() {
@@ -111,13 +111,17 @@ export default class HomePageScreen extends React.Component {
           </TouchableOpacity>
           </View>
           </View>
-          : <LoginScreen />}
+          : <LoginScreen signIn={this.handleSignIn} />}
         </ScrollView>
       </View>
     );
   }
 
-  onPressLearnMore = () => {};
+  handleSignIn = (value: object) => {
+    // use ref to get the form value
+    console.log('value: ', value);  
+  }
+
 }
 
 const styles = StyleSheet.create({
