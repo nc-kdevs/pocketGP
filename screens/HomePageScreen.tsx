@@ -19,12 +19,12 @@ export default class HomePageScreen extends React.Component {
   };
 
   state = {
-    isLoggedIn: true,
+    isLoggedIn: false,
     user: {},
   }
 
   render() {
-    console.log(this.state.isLoggedIn, this.state.user)
+    console.log(this.state.isLoggedIn, '<-- state', this.state.user, '<-- user')
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
@@ -125,7 +125,8 @@ export default class HomePageScreen extends React.Component {
     const password = value.password;
     getUserByUsername(username)
     .then((patient: Object) => {
-      if (patient.patient_password === password) this.setState({ user: patient, isLoggedin: true })
+      if (patient.patient_password === password) {
+        this.setState({ user: patient, isLoggedIn: true })}
     })
   }
 

@@ -7,6 +7,11 @@ import axios from 'axios';
 // axios.defaults.baseURL = 'https://pocket-gp.herokuapp.com/api';
 
 export default class AilmentNotes extends React.Component {
+  static navigationOptions = {
+    header: null,
+    title: "ailmentNotes"
+  };
+
   state = {
     image: null,
     hasCameraPermission: null,
@@ -88,13 +93,12 @@ export default class AilmentNotes extends React.Component {
     const value = this._form.getValue();
     console.log("value: ", value);
     const ailmentObj = {
-      image,
-      // patient_username: 'KDEVS',
+      image: `${image}`,
       ailment_type: value.type,
       ailment_name: value.name,
       ailment_description: value.description,
       prescription: value.prescription,
-      treatment_plan: value.treatment,
+      treatment_plan: value.treatment
     };
     console.log(ailmentObj)
     return axios
