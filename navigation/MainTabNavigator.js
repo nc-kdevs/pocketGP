@@ -12,6 +12,7 @@ import LinksScreen from "../screens/LinksScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import HomePageScreen from "../screens/HomePageScreen";
 import AilmentNotesScreen from '../screens/AilmentNotesScreen';
+import AnalyticsScreen from '../screens/AilmentAnalytics';
 
 const AilmentNotesStack = createStackNavigator({
   AilmentNotes: AilmentNotesScreen
@@ -91,11 +92,34 @@ SettingsStack.navigationOptions = {
   )
 };
 
+const AnalyticsStack = createStackNavigator({
+  Analytics: AnalyticsScreenSettingsStack.navigationOptions = {
+    tabBarLabel: "Account",
+    tabBarIcon: ({ focused }) => (
+      <TabBarIcon
+        focused={focused}
+        name={Platform.OS === "ios" ? "ios-options" : "md-options"}
+      />
+    )
+  };
+});
+
+AnalyticsStack.navigationOptions = {
+  tabBarLabel: "Analytics",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === "ios" ? "ios-options" : "md-options"}
+    />
+  )
+};
+
 export default createBottomTabNavigator({
   HomePageStack,
   HomeStack,
   LoginStack,
   LinksStack,
   SettingsStack,
-  AilmentNotesStack
+  AilmentNotesStack,
+  AnalyticsStack
 });
