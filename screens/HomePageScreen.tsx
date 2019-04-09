@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import Header from "../components/Header";
 import LoginScreen from "../components/Login";
+import { getUserByUsername } from "../assets/utils.js"
 
 export default class HomePageScreen extends React.Component {
   static navigationOptions = {
@@ -18,10 +19,12 @@ export default class HomePageScreen extends React.Component {
   };
 
   state = {
-    isLoggedIn: false,
+    isLoggedIn: true,
+    user: {},
   }
 
   render() {
+    console.log(this.state.isLoggedIn, this.state.user)
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
@@ -117,9 +120,13 @@ export default class HomePageScreen extends React.Component {
     );
   }
 
-  handleSignIn = (value: object) => {
-    // use ref to get the form value
-    console.log('value: ', value);  
+  handleSignIn = (value: Object) => {
+    const username = value.username;
+    const password = value.password;
+    getUserByUsername(username)
+    .then((patient: Object) => {
+      if (patient.patient_password === password) this.setState({ user: patient, isLoggedin: true })
+    })
   }
 
 }
