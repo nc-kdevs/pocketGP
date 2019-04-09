@@ -4,8 +4,6 @@ import { Camera, Permissions } from 'expo';
 import t from "tcomb-form-native";
 import axios from 'axios';
 
-// axios.defaults.baseURL = 'https://pocket-gp.herokuapp.com/api';
-
 export default class AilmentNotes extends React.Component {
   static navigationOptions = {
     header: null,
@@ -25,7 +23,6 @@ export default class AilmentNotes extends React.Component {
 
   render() {
     const { hasCameraPermission, image } = this.state;
-    console.log(image)
     if (hasCameraPermission === null) {
       return <View />;
     } else if (hasCameraPermission === false) {
@@ -46,11 +43,6 @@ export default class AilmentNotes extends React.Component {
             </View>
 
             <View style={styles.formContainer}>
-              <Form
-                type={AilmentForm}
-                ref={(patchSetting: object) => (this._form = patchSetting)}
-                options={options}
-              />
               <Text style={styles.cameraText}>If your ailment is visual, please use the camera below.</Text>
               <Text style={styles.cameraText}>This will help keep you GP up to date with how the ailment is progressing</Text>
               {image
@@ -79,6 +71,11 @@ export default class AilmentNotes extends React.Component {
                     <Image source={require("../assets/images/camera-icon.png")} style={styles.cameraImage} />
                   </TouchableOpacity>
                 </View>}
+              <Form
+                type={AilmentForm}
+                ref={(patchSetting: object) => (this._form = patchSetting)}
+                options={options}
+              />
               <Button title="Submit Changes" onPress={this.handleSubmit} />
             </View>
           </ScrollView>

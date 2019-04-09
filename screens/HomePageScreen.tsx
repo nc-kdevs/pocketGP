@@ -1,15 +1,12 @@
 import React from "react";
 import {
   StyleSheet,
-  TouchableOpacity,
-  TouchableHighlight,
-  Image,
-  Text,
   View,
   ScrollView
 } from "react-native";
 import LoginScreen from "../components/Login";
 import { getUserByUsername, getSurgeryByUsername } from "../assets/utils.js"
+import PatientHome from "../components/PatientHome";
 
 export default class HomePageScreen extends React.Component {
   static navigationOptions = {
@@ -24,7 +21,6 @@ export default class HomePageScreen extends React.Component {
   }
 
   render() {
-    console.log(this.state.isLoggedIn, '<-- logged in', this.state.user, '<-- user', this.state.isPatient, '<-- is patient?')
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
@@ -33,88 +29,8 @@ export default class HomePageScreen extends React.Component {
           contentContainerStyle={styles.contentContainer}
         >
       {this.state.isLoggedIn
-      ? <View>  
-        <View style={styles.logoContainer}>
-            <Image
-              source={require("../assets/images/logo.png")}
-              style={styles.logoImage}
-            />
-            <Text style={styles.mainHeaderText}>Pocket GP</Text>
-          </View>
-        <View style={styles.content}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              navigate("AilmentNotes");
-            }}
-          >
-            <TouchableHighlight style={styles.imageContainer}>
-              <Image
-                style={styles.image}
-                source={{
-                  uri:
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWhCyDCBjeUbP6E6XtDZqiU6P5mK8BntDB1OpFoI5YqwMeBsHt"
-                }}
-              />
-            </TouchableHighlight>
-            <View style={styles.textContainer}>
-              <Text style={styles.innertext}>Ailment Notes</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigate("Home")}
-          >
-            <TouchableHighlight style={styles.imageContainer}>
-              <Image
-                style={styles.image}
-                source={{
-                  uri:
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6-c6GABdTIfS6Rm1EIZdB8FlyGomnbrYSKNRKHvns2S9WVQroKQ"
-                }}
-              />
-            </TouchableHighlight>
-            <View style={styles.textContainer}>
-              <Text style={styles.innertext}>Analytics</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigate("Home")}
-          >
-            <TouchableHighlight style={styles.imageContainer}>
-              <Image
-                style={styles.image}
-                source={{
-                  uri:
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_BoyG4HqSBqLQjOyCDi5iJZ8o3jNPXBsd9ckzt07oHtJVLrp6"
-                }}
-              />
-            </TouchableHighlight>
-            <View style={styles.textContainer}>
-              <Text style={styles.innertext}>Treatment Plan</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigate("Settings")}
-          >
-            <TouchableHighlight style={styles.imageContainer}>
-              <Image
-                style={styles.image}
-                source={{
-                  uri:
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTM3QB7ooA8Iaf7soYlCuYcoDSo4liUaJ5YGpP0JoG3pbm3pnO4xA"
-                }}
-              />
-            </TouchableHighlight>
-            <View style={styles.textContainer}>
-              <Text style={styles.innertext}>Account Settings</Text>
-            </View>
-          </TouchableOpacity>
-          </View>
-          </View>
-          : <LoginScreen signIn={this.handleSignIn} />}
+      ? <PatientHome navigate={navigate} />
+      : <LoginScreen signIn={this.handleSignIn} />}
         </ScrollView>
       </View>
     );
@@ -146,7 +62,6 @@ export default class HomePageScreen extends React.Component {
     })
     .catch(() => 'sorry, not found')
   }
-
 }
 
 const styles = StyleSheet.create({
