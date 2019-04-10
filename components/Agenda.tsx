@@ -15,7 +15,7 @@ class AgendaScreen extends Component {
       <Agenda
         items={this.state.items}
         loadItemsForMonth={this.loadItems.bind(this)}
-        selected={"2019-01-01"}
+        selected={"2019-04-10"}
         renderItem={this.renderItem.bind(this)}
         renderEmptyDate={this.renderEmptyDate.bind(this)}
         rowHasChanged={this.rowHasChanged.bind(this)}
