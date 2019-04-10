@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, ScrollView } from "react-native";
+import { StyleSheet, View, ScrollView, Platform } from "react-native";
 import LoginScreen from "../components/Login";
 import { getUserByUsername, getSurgeryByUsername } from "../assets/utils.js";
 import PatientHome from "../components/PatientHome";
@@ -18,6 +18,7 @@ export default class HomePageScreen extends React.Component {
   };
 
   render() {
+    console.log(Platform.OS)
     const navigate = this.props.navigation;
     return (
       <View style={styles.container}>

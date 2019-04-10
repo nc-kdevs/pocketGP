@@ -11,7 +11,6 @@ import SettingsScreen from "../screens/SettingsScreen";
 import HomePageScreen from "../screens/HomePageScreen";
 import AilmentNotesScreen from "../screens/AilmentNotesScreen";
 import AnalyticsScreen from "../screens/AilmentAnalytics";
-import GPHomePageScreen from "../screens/GPHomePageScreen";
 
 const HomePageStack = createStackNavigator({
   HomePage: HomePageScreen
@@ -19,20 +18,6 @@ const HomePageStack = createStackNavigator({
 
 HomePageStack.navigationOptions = {
   tabBarLabel: "Home",
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === "ios" ? "ios-options" : "md-options"}
-    />
-  )
-};
-
-const GPHomePageStack = createStackNavigator({
-  GPHomePage: GPHomePageScreen
-});
-
-GPHomePageStack.navigationOptions = {
-  tabBarLabel: "GPHome",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -50,11 +35,7 @@ AilmentNotesStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={
-        Platform.OS === "ios"
-          ? `ios-information-circle${focused ? "" : "-outline"}`
-          : "md-information-circle"
-      }
+      name={Platform.OS === "ios" ? "ios-add-circle-outline" : "md-add-circle-outline"}
     />
   )
 };
@@ -94,35 +75,21 @@ SettingsStack.navigationOptions = {
 const AnalyticsStack = createStackNavigator({
   Analytics: AnalyticsScreen
 });
-AnalyticsStack.navigationOptions = {
-  tabBarLabel: "Account",
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === "ios" ? "ios-options" : "md-options"}
-    />
-  )
-};
 
 AnalyticsStack.navigationOptions = {
   tabBarLabel: "Analytics",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={
-        Platform.OS === "ios"
-          ? `ios-information-circle${focused ? "" : "-outline"}`
-          : "md-information-circle"
-      }
+      name={Platform.OS === "ios" ? "ios-barcode" : "md-barcode"}
     />
   )
 };
 
 export default createBottomTabNavigator({
   HomePageStack,
-  SettingsStack,
   AilmentNotesStack,
   AnalyticsStack,
   TreatmentStack,
-  GPHomePageStack
+  SettingsStack
 });
