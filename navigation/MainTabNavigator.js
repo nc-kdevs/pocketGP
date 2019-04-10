@@ -1,60 +1,95 @@
-import React from 'react';
-import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import React from "react";
+import { Platform } from "react-native";
+import {
+  createStackNavigator,
+  createBottomTabNavigator
+} from "react-navigation";
 
-import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import TabBarIcon from "../components/TabBarIcon";
+import LinksScreen from "../screens/LinksScreen";
+import SettingsScreen from "../screens/SettingsScreen";
+import HomePageScreen from "../screens/HomePageScreen";
+import AilmentNotesScreen from "../screens/AilmentNotesScreen";
+import AnalyticsScreen from "../screens/AilmentAnalytics";
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+const HomePageStack = createStackNavigator({
+  HomePage: HomePageScreen
 });
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+HomePageStack.navigationOptions = {
+  tabBarLabel: "Home",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === "ios" ? "ios-options" : "md-options"}
+    />
+  )
+};
+
+const AilmentNotesStack = createStackNavigator({
+  AilmentNotes: AilmentNotesScreen
+});
+
+AilmentNotesStack.navigationOptions = {
+  tabBarLabel: "Notes",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === "ios" ? "ios-add-circle-outline" : "md-add-circle-outline"}
+    />
+  )
+};
+
+const TreatmentStack = createStackNavigator({
+  Treatment: LinksScreen
+});
+
+TreatmentStack.navigationOptions = {
+  tabBarLabel: "Plan",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === "ios" ? "ios-link" : "md-link"}
+    />
+  )
+};
+
+const SettingsStack = createStackNavigator({
+  Settings: SettingsScreen
+});
+
+SettingsStack.navigationOptions = {
+  tabBarLabel: "Account",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+        Platform.OS === "ios"
+          ? `ios-information-circle${focused ? "" : "-outline"}`
+          : "md-information-circle"
       }
     />
-  ),
+  )
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const AnalyticsStack = createStackNavigator({
+  Analytics: AnalyticsScreen
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+AnalyticsStack.navigationOptions = {
+  tabBarLabel: "Analytics",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+      name={Platform.OS === "ios" ? "ios-barcode" : "md-barcode"}
     />
-  ),
-};
-
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
-});
-
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-    />
-  ),
+  )
 };
 
 export default createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
+  HomePageStack,
+  AilmentNotesStack,
+  AnalyticsStack,
+  TreatmentStack,
+  SettingsStack
 });
