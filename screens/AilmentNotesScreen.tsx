@@ -89,7 +89,6 @@ export default class AilmentNotes extends React.Component {
 
   handleSubmit = (value: Object) => {
     const { image } = this.state;
-    // use ref to get the form value
     console.log("value: ", value);
     const ailmentObj = {
       image: `${image}`,
@@ -102,7 +101,10 @@ export default class AilmentNotes extends React.Component {
     console.log(ailmentObj)
     return axios
     .post('https://pocket-gp.herokuapp.com/api/patients/KDEVS/ailments', ailmentObj)
-    .then(({ data }) => console.log(data, '<-- data'))
+    .then(({ data }) => {
+      console.log(data, '<-- data')
+      this.setState({ image: null })
+    })
     .catch(err => console.log(err, '<-- error'))
   };
 
