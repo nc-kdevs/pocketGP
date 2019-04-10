@@ -76,7 +76,10 @@ export default class AilmentNotes extends React.Component {
                 ref={(patchSetting: object) => (this._form = patchSetting)}
                 options={options}
               />
-              <Button title="Submit Changes" onPress={this.handleSubmit} />
+              <Button title="Submit Changes" onPress={() => {
+                const value = this._form.getValue();
+                if (value) this.handleSubmit(value)
+              }} />
             </View>
           </ScrollView>
         </View>
@@ -84,10 +87,9 @@ export default class AilmentNotes extends React.Component {
     }
   }
 
-  handleSubmit = () => {
+  handleSubmit = (value: Object) => {
     const { image } = this.state;
     // use ref to get the form value
-    const value = this._form.getValue();
     console.log("value: ", value);
     const ailmentObj = {
       image: `${image}`,
@@ -163,7 +165,8 @@ const options = {
       error: "a short description of how you feel"
     }
   },
-  stylesheet: formStyles
+  stylesheet: formStyles,
+  auto: 'placeholders'
 };
 
 const styles = StyleSheet.create({

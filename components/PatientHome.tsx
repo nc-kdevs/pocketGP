@@ -10,7 +10,7 @@ import {
 
 export default class PatientHome extends React.Component {
   render() {
-    const navigate = this.props.navigate;
+    const { navigate } = this.props.navigate;
     return (
       <View>  
         <View style={styles.logoContainer}>

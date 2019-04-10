@@ -57,7 +57,7 @@ export default class LoginScreen extends Component {
               title="Sign In"
               onPress={() => {
                 const value = this._form.getValue()
-                signIn(value)
+                if (value) signIn(value)
               }}
             />
             <Text style={styles.text}>Or</Text>
@@ -120,6 +120,7 @@ const options = {
       error: 'Please Try Again'
     },
   },
+  auto: 'placeholders'
 };
 
 const styles = StyleSheet.create({
