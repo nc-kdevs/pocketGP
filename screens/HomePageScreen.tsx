@@ -1,14 +1,12 @@
 import React from "react";
 import {
   StyleSheet,
-  TouchableOpacity,
-  TouchableHighlight,
-  Image,
-  Text,
   View,
   ScrollView
 } from "react-native";
-import Header from "../components/Header";
+import LoginScreen from "../components/Login";
+import { getUserByUsername, getSurgeryByUsername } from "../assets/utils.js"
+import PatientHome from "../components/PatientHome";
 
 export default class HomePageScreen extends React.Component {
   static navigationOptions = {
@@ -16,14 +14,23 @@ export default class HomePageScreen extends React.Component {
     title: "homePage"
   };
 
+  state = {
+    isPatient: true,
+    isLoggedIn: false,
+    user: {},
+  }
+
   render() {
-    const { navigate } = this.props.navigation;
+    const navigate = this.props.navigation;
     return (
       <View style={styles.container}>
         <ScrollView
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
+      {this.state.isLoggedIn
+      ? <PatientHome navigate={navigate} />
+      : <LoginScreen signIn={this.handleSignIn} />}
           <View style={styles.logoContainer}>
             <Image
               source={require("../assets/images/logo.png")}
@@ -108,14 +115,40 @@ export default class HomePageScreen extends React.Component {
     );
   }
 
-  onPressLearnMore = () => {};
+  handleSignIn = (value: Object) => {
+    const username = value.username;
+    const password = value.password;
+    getUserByUsername(username)
+    .then((newPatient: Object) => {
+      if (newPatient.patient_password === password) {
+        this.setState({
+          user: newPatient,
+          isLoggedIn: true,
+          isPatient: true
+        })
+      }
+    })
+    .catch(() => 'sorry, not found')
+    getSurgeryByUsername(username)
+    .then((newSurgery: Object) => {
+      if (newSurgery.surgery_password === password) {
+        this.setState({
+          user: newSurgery,
+          isLoggedIn: true,
+          isPatient: false
+        })
+      }
+    })
+    .catch(() => 'sorry, not found')
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     flex: 1,
-    flexWrap: "wrap"
+    flexWrap: "wrap",
+    textAlign: 'center'
   },
   content: {
     flex: 1,
@@ -125,7 +158,8 @@ const styles = StyleSheet.create({
     overflow: "hidden"
   },
   contentContainer: {
-    paddingTop: 30
+    paddingTop: 30,
+    alignItems: 'center'
   },
   logoContainer: {
     marginTop: 0,

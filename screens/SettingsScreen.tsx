@@ -16,7 +16,8 @@ export default class SettingsScreen extends Component {
   };
 
   state = {
-    isPatient: true
+    isPatient: true,
+    isIncorrectPassword: false,
   };
 
   render() {
@@ -35,12 +36,17 @@ export default class SettingsScreen extends Component {
             <Text style={styles.mainHeaderText}>Pocket GP</Text>
           </View>
           <View style={styles.formContainer}>
+            {this.state.isIncorrectPassword && <Text style={styles.incorrectPassword}>Incorrect Password</Text>}
             <Form
               type={User}
               ref={(patchSetting: object) => (this._form = patchSetting)}
               options={options}
             />
-            <Button title="Submit Changes" onPress={this.handleSubmit} />
+            <Button title="Submit Changes" onPress={() => {
+              const value = this._form.getValue();
+              if (value) this.handleSubmit(value)
+              else this.setState({ isIncorrectPassword: false })
+            }} />
           </View>
         </ScrollView>
       </View>
@@ -70,37 +76,38 @@ export default class SettingsScreen extends Component {
     );
   }
 
-  handleSubmit = () => {
-    // use ref to get the form value
-    const value = this._form.getValue();
+  handleSubmit = (value: object) => {
     console.log("value: ", value);
+    if (value.password === 'PocketGP') {
+      console.log('do patch request')
+      this.setState({ isIncorrectPassword: false })
+    }
+    else this.setState({ isIncorrectPassword: true })
   };
 }
 
 const User = t.struct({
-  username: t.String,
   password: t.String,
-  firstname: t.String,
-  surname: t.String,
-  surgery: t.String,
-  telephone: t.String,
-  email: t.String,
-  "address Line 1": t.String,
+  firstname: t.maybe(t.String),
+  surname: t.maybe(t.String),
+  surgery: t.maybe(t.String),
+  telephone: t.maybe(t.String),
+  email: t.maybe(t.String),
+  "address Line 1": t.maybe(t.String),
   "address Line 2": t.maybe(t.String),
-  "address Town": t.String,
-  "post Code": t.String,
-  emergencyContact: t.String,
-  surgeryName: t.String
+  "address Town": t.maybe(t.String),
+  "post Code": t.maybe(t.String),
+  emergencyContact: t.maybe(t.String),
+  surgeryName: t.maybe(t.String)
 });
 
 const Surgery = t.struct({
-  username: t.String,
   password: t.String,
-  name: t.String,
-  "address Line 1": t.String,
+  name: t.maybe(t.String),
+  "address Line 1": t.maybe(t.String),
   "address Line 2": t.maybe(t.String),
-  "address Town": t.String,
-  "post Code": t.String
+  "address Town": t.maybe(t.String),
+  "post Code": t.maybe(t.String)
 });
 
 const Form = t.form.Form;
@@ -120,19 +127,24 @@ const formStyles = {
       marginBottom: 7,
       fontWeight: "600"
     }
+  },
+  textInput: {
+    normal: {
+      borderColor: 'blue'
+    }
   }
 };
 
 const options = {
   fields: {
-    username: {
-      error: "Username Required To Make Changes"
-    },
     password: {
+      password: true,
+      secureTextEntry: true,
       error: "Password Required To Make Changes"
-    }
+    },
   },
-  stylesheet: formStyles
+  stylesheet: formStyles,
+  auto: 'placeholders'
 };
 
 const styles = StyleSheet.create({
@@ -175,6 +187,10 @@ const styles = StyleSheet.create({
     color: "rgba(0, 0, 0, 1)",
     lineHeight: 24,
     textAlign: "center"
+  },
+  incorrectPassword: {
+    fontSize: 16,
+    color: "#8B0000",
   },
   helpContainer: {
     marginTop: 10,

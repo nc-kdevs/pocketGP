@@ -6,10 +6,11 @@ import {
 } from "react-navigation";
 
 import TabBarIcon from "../components/TabBarIcon";
-import LoginScreen from "../screens/LoginScreen";
 import LinksScreen from "../screens/LinksScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import HomePageScreen from "../screens/HomePageScreen";
+import AilmentNotesScreen from '../screens/AilmentNotesScreen';
+import AnalyticsScreen from '../screens/AilmentAnalytics';
 import GPHomePageScreen from "../screens/GPHomePageScreen";
 import AilmentNotesScreen from "../screens/AilmentNotesScreen";
 
@@ -59,40 +60,12 @@ AilmentNotesStack.navigationOptions = {
   )
 };
 
-const LoginStack = createStackNavigator({
-  Login: LoginScreen
-});
-
-LoginStack.navigationOptions = {
-  tabBarLabel: "Login",
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === "ios" ? "ios-link" : "md-link"}
-    />
-  )
-};
-
 const TreatmentStack = createStackNavigator({
   Treatment: LinksScreen
 });
 
 TreatmentStack.navigationOptions = {
   tabBarLabel: "Plan",
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === "ios" ? "ios-link" : "md-link"}
-    />
-  )
-};
-
-const LinksStack = createStackNavigator({
-  Links: LinksScreen
-});
-
-LinksStack.navigationOptions = {
-  tabBarLabel: "Analytics",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -110,6 +83,31 @@ SettingsStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
+      name={Platform.OS === "ios"
+        ? `ios-information-circle${focused ? "" : "-outline"}`
+        : "md-information-circle"}
+    />
+  )
+};
+
+const AnalyticsStack = createStackNavigator({
+  Analytics: AnalyticsScreen
+});
+AnalyticsStack.navigationOptions = {
+  tabBarLabel: "Account",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === "ios" ? "ios-options" : "md-options"}
+    />
+  )
+};
+
+AnalyticsStack.navigationOptions = {
+  tabBarLabel: "Analytics",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
       name={
         Platform.OS === "ios"
           ? `ios-information-circle${focused ? "" : "-outline"}`
@@ -121,10 +119,11 @@ SettingsStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   HomePageStack,
+  SettingsStack,
   AilmentNotesStack,
+  AnalyticsStack,
   TreatmentStack,
   LoginStack,
   LinksStack,
-  SettingsStack,
   GPHomePageStack
 });
