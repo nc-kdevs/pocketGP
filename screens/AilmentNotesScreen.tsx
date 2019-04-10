@@ -12,6 +12,7 @@ export default class AilmentNotes extends React.Component {
 
   state = {
     image: null,
+    imageURL: null,
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
   };
@@ -87,25 +88,57 @@ export default class AilmentNotes extends React.Component {
     }
   }
 
+  // imgur stable baseURL: https://api.imgur.com/3/
+
+//   For accessing a user's account, please visit the OAuth2 section of the docs. OAuth Endpoints To access OAuth, the following endpoints must be used:
+
+// https://api.imgur.com/oauth2/addclient
+// https://api.imgur.com/oauth2/authorize
+// https://api.imgur.com/oauth2/token
+// You can also verify your OAuth 2.0 tokens by setting your header and visiting the page
+
+// https://api.imgur.com/oauth2/secret
+
+// Client ID - c6f21ab825b2cc5
+// Client Secret - 9d810a5a3b5a686ab332a445e4e6e9dce517d5d4
+
+// post request URL: https://api.imgur.com/3/upload
+// url is on data.link (type: string)
+// POST "https://api.imgur.com/3/image" \
+//   --header "Authorization: Client-ID {{clientId}}" \
+//   --form "image=R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+
   handleSubmit = (value: Object) => {
     const { image } = this.state;
-    console.log("value: ", value);
-    const ailmentObj = {
-      image: `${image}`,
-      ailment_type: value.type,
-      ailment_name: value.name,
-      ailment_description: value.description,
-      prescription: value.prescription,
-      treatment_plan: value.treatment
-    };
-    console.log(ailmentObj)
-    return axios
-    .post('https://pocket-gp.herokuapp.com/api/patients/KDEVS/ailments', ailmentObj)
-    .then(({ data }) => {
-      console.log(data, '<-- data')
-      this.setState({ image: null })
-    })
-    .catch(err => console.log(err, '<-- error'))
+    if (image) {
+      return axios
+      .post('https://api.imgur.com/3/image',
+        {image: image},
+        {
+          "headers": {
+          "Authorization": "Client-ID {c6f21ab825b2cc5}"
+          }
+        })
+      // .post('https://api.imgur.com/3/image', image)
+      .then(({ data }) => console.log(data))
+      .catch(err => console.log(err, '<-- imgur error'))
+    }
+    // const ailmentObj = {
+    //   image: `${image}`,
+    //   ailment_type: value.type,
+    //   ailment_name: value.name,
+    //   ailment_description: value.description,
+    //   prescription: value.prescription,
+    //   treatment_plan: value.treatment
+    // };
+    // console.log(ailmentObj)
+    // return axios
+    // .post('https://pocket-gp.herokuapp.com/api/patients/spike/ailments', ailmentObj)
+    // .then(({ data }) => {
+    //   console.log(data, '<-- data')
+    //   this.setState({ image: null })
+    // })
+    // .catch(err => console.log(err, '<-- BE error'))
   };
 
   cancelSnap = () => {
