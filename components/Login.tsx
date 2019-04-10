@@ -42,10 +42,14 @@ export default class LoginScreen extends Component {
               ref={(signUp: object) => this._form = signUp}
               options={options}
             />
-            <Button
-              title="Join"
+            <View style={styles.sideBySide}><Button
+              title="JOIN"
               onPress={this.handleSignUp}
             />
+            <Button
+              title="CANCEL"
+              onPress={this.toggleSignUp}
+            /></View>
           </View>
             : <View style={styles.formContainer}>
             <Form
@@ -54,7 +58,7 @@ export default class LoginScreen extends Component {
               options={options}
             />
             <Button
-              title="Sign In"
+              title="SIGN IN"
               onPress={() => {
                 const value = this._form.getValue()
                 if (value) signIn(value)
@@ -62,9 +66,11 @@ export default class LoginScreen extends Component {
             />
             <Text style={styles.text}>Or</Text>
             <View style={styles.helpContainer}>
-              <TouchableOpacity onPress={this.toggleSignUp} style={styles.helpLink}>
-                <Text style={styles.helpLinkText}>SIGN UP</Text>
-              </TouchableOpacity>
+            <Button
+              title="JOIN"
+              onPress={this.toggleSignUp}
+            />
+
             </View>
           </View>}
           
@@ -75,7 +81,8 @@ export default class LoginScreen extends Component {
   }
 
   toggleSignUp = () => {
-    this.setState({ isNewUser: true })
+    if (this.state.isNewUser) this.setState({ isNewUser: false })
+    else this.setState({ isNewUser: true })
   };
 
   handleSignUp = () => {
@@ -172,12 +179,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   helpLink: {
-    paddingTop: 10,
+    paddingTop: 0,
     paddingBottom: 40,
-    margin: 20,
+    margin: 0,
   },
   helpLinkText: {
     fontSize: 16,
     color: '#00BFFF',
   },
+  sideBySide: {
+    flexDirection: "row",
+    justifyContent: 'space-around'
+  }
 });

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, ScrollView, Platform } from "react-native";
+import { StyleSheet, View, ScrollView, Image, Text } from "react-native";
 import LoginScreen from "../components/Login";
 import { getUserByUsername, getSurgeryByUsername } from "../assets/utils.js";
 import PatientHome from "../components/PatientHome";
@@ -12,13 +12,12 @@ export default class HomePageScreen extends React.Component {
   };
 
   state = {
-    isPatient: false,
-    isLoggedIn: true,
+    isPatient: true,
+    isLoggedIn: false,
     user: {}
   };
 
   render() {
-    console.log(Platform.OS)
     const navigate = this.props.navigation;
     return (
       <View style={styles.container}>
@@ -26,12 +25,19 @@ export default class HomePageScreen extends React.Component {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
+        {this.state.isLoggedIn && <View style={styles.logoContainer}>
+          <Image
+            source={require("../assets/images/logo.png")}
+            style={styles.logoImage}
+          />
+            <Text style={styles.mainHeaderText}>Pocket GP</Text>
+          </View>}
           {this.state.isLoggedIn
           ? ((this.state.isPatient)
             ? <PatientHome navigate={navigate} />
-            : <View style={styles.gpHome}><GPHomePageScreen /></View>)
-          : <LoginScreen
-          signIn={this.handleSignIn} />}
+            : <View style={styles.center}><GPHomePageScreen /></View>)
+          : <View style={styles.center}><LoginScreen
+          signIn={this.handleSignIn} /></View>}
           
         </ScrollView>
       </View>
@@ -82,10 +88,8 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingTop: 30,
-    alignItems: "center",
-    justifyContent: 'center'
   },
-  gpHome: {
+  center: {
     width: 300,
     height: 500,
     margin: 10

@@ -244,17 +244,27 @@ const styles = StyleSheet.create({
     height: 200,
     margin: 0,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    padding: 2,
+    borderWidth: 2,
+    borderColor: '#00BFFF'
+  },
+  cameraImage: {
+    marginVertical: 10,
+    padding: 0,
+    height: 50,
+    width: 50,
   },
   cameraText: {
-    textAlign: "center"
+    textAlign: "center",
+    paddingBottom: 10,
+    fontSize: 16
   },
   contentContainer: {
     paddingTop: 30
   },
   formContainer: {
     justifyContent: "center",
-    marginTop: 10,
     padding: 10
   },
   logoContainer: {
@@ -271,12 +281,6 @@ const styles = StyleSheet.create({
     height: 50,
     resizeMode: "center",
     marginLeft: 20
-  },
-  cameraImage: {
-    marginBottom: 10,
-    padding: 0,
-    height: 50,
-    width: 50
   },
   cancelCameraImage: {
     justifyContent: "center",

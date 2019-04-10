@@ -2,20 +2,9 @@ import React, { Component } from "react";
 import {
   Platform,
   StyleSheet,
-  View,
-  TextInput,
-  Image,
-  Text,
-  Button,
-  TouchableOpacity,
-  TouchableHighlight,
-  Modal,
-  Alert,
-  ScrollView,
-  ListView
+  View
 } from "react-native";
 import AgendaScreen from "../components/Agenda";
-import { Calendar } from "react-native-calendars";
 
 export default class GPHomePageScreen extends Component {
   state = {
@@ -23,6 +12,7 @@ export default class GPHomePageScreen extends Component {
   }
 
   onDayPress = day => {
+    console.log(day)
     this.setState({
       selected: day.dateString
     });
@@ -84,7 +74,8 @@ const styles = StyleSheet.create({
     borderColor: "#9E9E9E",
     borderRadius: 20,
     backgroundColor: "#FFFFFF",
-    height: 100
+    overflow: 'hidden'
+    // height: 100
   },
   calendarContainer: {
     flex: 2,

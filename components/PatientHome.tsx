@@ -13,13 +13,6 @@ export default class PatientHome extends React.Component {
     const { navigate } = this.props.navigate;
     return (
       <View>  
-        <View style={styles.logoContainer}>
-            <Image
-              source={require("../assets/images/logo.png")}
-              style={styles.logoImage}
-            />
-            <Text style={styles.mainHeaderText}>Pocket GP</Text>
-          </View>
         <View style={styles.content}>
           <TouchableOpacity
             style={styles.button}
