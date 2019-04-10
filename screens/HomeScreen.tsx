@@ -1,12 +1,7 @@
-import React, {Component} from 'react';
-import Agenda from '../components/Agenda';
-import {
-  Text,
-  StyleSheet,
-  ScrollView,
-  View
-} from 'react-native';
-import {Calendar} from 'react-native-calendars';
+import React, { Component } from "react";
+import Agenda from "./CalendarPageScreen";
+import { Text, StyleSheet, ScrollView, View } from "react-native";
+import { Calendar } from "react-native-calendars";
 
 export default class CalendarsScreen extends Component {
   constructor(props) {
@@ -19,7 +14,7 @@ export default class CalendarsScreen extends Component {
     return (
       <ScrollView style={styles.container}>
         <View>
-          <Agenda/>
+          <Agenda />
         </View>
       </ScrollView>
     );
@@ -37,17 +32,17 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     paddingTop: 5,
     borderBottomWidth: 1,
-    borderColor: '#eee',
+    borderColor: "#eee",
     height: 350
   },
   text: {
-    textAlign: 'center',
-    borderColor: '#bbb',
+    textAlign: "center",
+    borderColor: "#bbb",
     padding: 10,
-    backgroundColor: '#eee'
+    backgroundColor: "#eee"
   },
   container: {
     flex: 1,
-    backgroundColor: 'gray'
+    backgroundColor: "gray"
   }
 });

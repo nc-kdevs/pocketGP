@@ -12,6 +12,7 @@ import SettingsScreen from "../screens/SettingsScreen";
 import HomePageScreen from "../screens/HomePageScreen";
 import GPHomePageScreen from "../screens/GPHomePageScreen";
 import AilmentNotesScreen from "../screens/AilmentNotesScreen";
+import CalendarPageScreen from "../screens/CalendarPageScreen";
 
 const HomePageStack = createStackNavigator({
   HomePage: HomePageScreen
@@ -33,6 +34,20 @@ const GPHomePageStack = createStackNavigator({
 
 GPHomePageStack.navigationOptions = {
   tabBarLabel: "GPHome",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === "ios" ? "ios-options" : "md-options"}
+    />
+  )
+};
+
+const CalendarStack = createStackNavigator({
+  CalendarPage: CalendarPageScreen
+});
+
+CalendarStack.navigationOptions = {
+  tabBarLabel: "Calendar",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -126,5 +141,6 @@ export default createBottomTabNavigator({
   LoginStack,
   LinksStack,
   SettingsStack,
-  GPHomePageStack
+  GPHomePageStack,
+  CalendarStack
 });
