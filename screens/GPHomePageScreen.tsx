@@ -10,92 +10,26 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   Modal,
-  Alert
+  Alert,
+  ScrollView,
+  ListView
 } from "react-native";
-import {
-  Table,
-  TableWrapper,
-  Row,
-  Rows,
-  Col
-} from "react-native-table-component";
-// import { Cell } from "react-native-cell-components";
+import AgendaScreen from "../components/Agenda";
+import { Calendar } from "react-native-calendars";
 
 export default class GPHomePageScreen extends Component {
-  constructor(props: any) {
+  constructor(props) {
     super(props);
     this.state = {
-      tableHead: ["Time", "Description"],
-      tableData: [],
-      modalVisible: false
+      selected: 0
     };
   }
 
-  componentDidMount() {
-    this.getData();
-  }
-  static navigationOptions = {
-    header: null,
-    title: "GPhomePage"
-  };
-
-  getData = (): void => {
-    //retrieve data
-    var retrievedTable = [
-      {
-        time: "12.01",
-        description: "This is the descriptiom"
-      },
-      {
-        time: "12.01",
-        description: "This is the descriptiom"
-      },
-      {
-        time: "12.01",
-        description: "This is the descriptiom"
-      }
-    ];
-
-    let newTableState: Array<{}> = [];
-
-    retrievedTable.forEach(data => {
-      newTableState.push([
-        data.time,
-
-        <TouchableOpacity
-          onPress={() => this.setModalVisible()}
-          // style={styles.button}
-          // onPress={() => navigate("Home")}
-        >
-          <TouchableHighlight>
-            <Image
-              // style={styles.image}
-              source={{
-                uri:
-                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6-c6GABdTIfS6Rm1EIZdB8FlyGomnbrYSKNRKHvns2S9WVQroKQ"
-              }}
-            />
-          </TouchableHighlight>
-          <View>
-            <Text>{data.description}</Text>
-          </View>
-        </TouchableOpacity>
-      ]);
-    });
-
+  onDayPress = day => {
     this.setState({
-      tableData: newTableState
+      selected: day.dateString
     });
   };
-
-  // _showData = (data, index) => {
-  //   if (index !== 3) return;
-  //   console.log(data);
-  // };
-
-  setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
-  }
 
   render() {
     return (
@@ -117,79 +51,22 @@ export default class GPHomePageScreen extends Component {
             multiline={true}
           />
         </View>
-        <View style={styles.tableContainer}>
-          <Table>
-            <Row
-              data={this.state.tableHead}
-              flexArr={[1, 4]}
-              style={styles.head}
-              textStyle={styles.text}
-            />
-            <TableWrapper style={styles.wrapper}>
-              <Col
-                data={this.state.tableTitle}
-                style={styles.title}
-                heightArr={[28, 28]}
-                textStyle={styles.text}
-              />
-              <Rows
-                data={this.state.tableData}
-                flexArr={[1, 4]}
-                style={styles.row}
-                textStyle={styles.text}
-                onPress={() => this.showNotes}
-              />
-            </TableWrapper>
-          </Table>
-        </View>
-        <View style={{ marginTop: 22 }}>
-          <Modal
-            animationType="slide"
-            transparent={false}
-            visible={this.state.modalVisible}
-            onRequestClose={() => {
-              Alert.alert("Modal has been closed.");
-            }}
-          >
-            <View style={{ marginTop: 22 }}>
-              <View>
-                <Text>Hello World!</Text>
-
-                <TouchableHighlight
-                  onPress={() => {
-                    this.setModalVisible(!this.state.modalVisible);
-                  }}
-                >
-                  <Text>Hide Modal</Text>
-                </TouchableHighlight>
-              </View>
-            </View>
-          </Modal>
-
-          <TouchableHighlight
-            onPress={() => {
-              this.setModalVisible(true);
-            }}
-          >
-            <Text>Show Modal</Text>
-          </TouchableHighlight>
+        <View style={styles.calendarContainer}>
+          <AgendaScreen />
         </View>
       </View>
     );
   }
-
-  showNotes = () => {
-    console.log("Hello");
-  };
 }
 
 const styles = StyleSheet.create({
   MainContainer: {
-    flex: 1,
+    // flex: 1,
     paddingTop: Platform.OS === "ios" ? 20 : 0,
     margin: 10,
     marginTop: 15,
     marginBottom: 0,
+    paddingBottom: 10,
     flexDirection: "column",
     flexWrap: "wrap"
   },
@@ -227,46 +104,10 @@ const styles = StyleSheet.create({
     borderColor: "#9E9E9E",
     borderRadius: 20,
     backgroundColor: "#FFFFFF",
-    height: 150
+    height: 100
   },
-  tableContainer: {
-    flex: 1,
-    padding: 16,
-    paddingTop: 10,
-    backgroundColor: "#fff",
-    marginBottom: 280
-  },
-  head: {
-    height: 40,
-    backgroundColor: "#00BFFF"
-  },
-  wrapper: {
-    flexDirection: "row"
-  },
-  title: {
-    flex: 1,
-    backgroundColor: "#f6f8fa"
-  },
-  row: {
-    height: 28
-  },
-  text: {
-    textAlign: "center"
+  calendarContainer: {
+    flex: 2,
+    backgroundColor: "gray"
   }
 });
-
-{
-  /* {tableData.map((data, i) => (
-                <TableWrapper key={i} style={styles.row}>
-                  {data.map((cell, j) => (
-                    <TouchableOpacity
-                      key={j}
-                      style={styles.cell}
-                      onPress={() => this._showData(cell, j)}
-                    >
-                      <Cell data={cell} textStyle={styles.text} />
-                    </TouchableOpacity>
-                  ))}
-                </TableWrapper>
-              ))} */
-}

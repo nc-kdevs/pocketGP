@@ -2,12 +2,7 @@ import React, { Component } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { Agenda } from "react-native-calendars";
 
-export default class CalendarPageScreen extends Component {
-  static navigationOptions = {
-    header: null,
-    title: "Calendar"
-  };
-
+class AgendaScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,7 +15,7 @@ export default class CalendarPageScreen extends Component {
       <Agenda
         items={this.state.items}
         loadItemsForMonth={this.loadItems.bind(this)}
-        selected={"2018-04-01"}
+        selected={"2019-01-01"}
         renderItem={this.renderItem.bind(this)}
         renderEmptyDate={this.renderEmptyDate.bind(this)}
         rowHasChanged={this.rowHasChanged.bind(this)}
@@ -52,7 +47,7 @@ export default class CalendarPageScreen extends Component {
       this.setState({
         items: newItems
       });
-    }, 1000);
+    }, 500);
     // console.log(`Load Items for ${day.year}-${day.month}`);
   }
 
@@ -81,6 +76,8 @@ export default class CalendarPageScreen extends Component {
     return date.toISOString().split("T")[0];
   }
 }
+
+export default AgendaScreen;
 
 const styles = StyleSheet.create({
   item: {
