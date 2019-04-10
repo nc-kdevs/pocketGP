@@ -70,7 +70,6 @@ export default class LoginScreen extends Component {
               title="JOIN"
               onPress={this.toggleSignUp}
             />
-
             </View>
           </View>}
           
