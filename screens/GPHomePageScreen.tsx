@@ -63,8 +63,8 @@ const styles = StyleSheet.create({
   MainContainer: {
     // flex: 1,
     paddingTop: Platform.OS === "ios" ? 20 : 0,
-    margin: 10,
-    marginTop: 15,
+    margin: 0,
+    marginTop: 0,
     marginBottom: 0,
     paddingBottom: 10,
     flexDirection: "column",
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap"
   },
   logoContainer: {
-    marginTop: 30,
+    marginTop: 0,
     padding: 10,
     marginBottom: 10,
     borderBottomWidth: 3,
