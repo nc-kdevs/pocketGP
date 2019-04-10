@@ -3,6 +3,7 @@ import { StyleSheet, View, ScrollView } from "react-native";
 import LoginScreen from "../components/Login";
 import { getUserByUsername, getSurgeryByUsername } from "../assets/utils.js";
 import PatientHome from "../components/PatientHome";
+import GPHomePageScreen from "./GPHomePageScreen";
 
 export default class HomePageScreen extends React.Component {
   static navigationOptions = {
@@ -11,8 +12,8 @@ export default class HomePageScreen extends React.Component {
   };
 
   state = {
-    isPatient: true,
-    isLoggedIn: false,
+    isPatient: false,
+    isLoggedIn: true,
     user: {}
   };
 
@@ -24,11 +25,13 @@ export default class HomePageScreen extends React.Component {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
-          {this.state.isLoggedIn ? (
-            <PatientHome navigate={navigate} />
-          ) : (
-            <LoginScreen signIn={this.handleSignIn} />
-          )}
+          {this.state.isLoggedIn
+          ? ((this.state.isPatient)
+            ? <PatientHome navigate={navigate} />
+            : <View style={styles.gpHome}><GPHomePageScreen /></View>)
+          : <LoginScreen
+          signIn={this.handleSignIn} />}
+          
         </ScrollView>
       </View>
     );
@@ -78,7 +81,13 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingTop: 30,
-    alignItems: "center"
+    alignItems: "center",
+    justifyContent: 'center'
+  },
+  gpHome: {
+    width: 300,
+    height: 500,
+    margin: 10
   },
   logoContainer: {
     marginTop: 0,

@@ -18,11 +18,8 @@ import AgendaScreen from "../components/Agenda";
 import { Calendar } from "react-native-calendars";
 
 export default class GPHomePageScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selected: 0
-    };
+  state = {
+    selected: 0
   }
 
   onDayPress = day => {
@@ -34,23 +31,6 @@ export default class GPHomePageScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.logoContainer}>
-          <Image
-            source={require("../assets/images/logo.png")}
-            style={styles.logoImage}
-          />
-          <Text style={styles.mainHeaderText}>Pocket GP</Text>
-        </View>
-        <View style={styles.MainContainer}>
-          <TextInput
-            style={styles.TextInputStyleClass}
-            underlineColorAndroid="transparent"
-            placeholder={"Surgery Information Will Go Here."}
-            placeholderTextColor={"#9E9E9E"}
-            numberOfLines={10}
-            multiline={true}
-          />
-        </View>
         <View style={styles.calendarContainer}>
           <AgendaScreen />
         </View>
