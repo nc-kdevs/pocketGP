@@ -24,13 +24,92 @@ export default class HomePageScreen extends React.Component {
     const navigate = this.props.navigation;
     return (
       <View style={styles.container}>
-      <ScrollView
+        <ScrollView
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
       {this.state.isLoggedIn
       ? <PatientHome navigate={navigate} />
       : <LoginScreen signIn={this.handleSignIn} />}
+          <View style={styles.logoContainer}>
+            <Image
+              source={require("../assets/images/logo.png")}
+              style={styles.logoImage}
+            />
+            <Text style={styles.mainHeaderText}>Pocket GP</Text>
+          </View>
+          <View style={styles.content}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                navigate("AilmentNotes");
+              }}
+            >
+              <TouchableHighlight style={styles.imageContainer}>
+                <Image
+                  style={styles.image}
+                  source={{
+                    uri:
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWhCyDCBjeUbP6E6XtDZqiU6P5mK8BntDB1OpFoI5YqwMeBsHt"
+                  }}
+                />
+              </TouchableHighlight>
+              <View style={styles.textContainer}>
+                <Text style={styles.innertext}>Ailment Notes</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigate("Home")}
+            >
+              <TouchableHighlight style={styles.imageContainer}>
+                <Image
+                  style={styles.image}
+                  source={{
+                    uri:
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6-c6GABdTIfS6Rm1EIZdB8FlyGomnbrYSKNRKHvns2S9WVQroKQ"
+                  }}
+                />
+              </TouchableHighlight>
+              <View style={styles.textContainer}>
+                <Text style={styles.innertext}>Analytics</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigate("Home")}
+            >
+              <TouchableHighlight style={styles.imageContainer}>
+                <Image
+                  style={styles.image}
+                  source={{
+                    uri:
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_BoyG4HqSBqLQjOyCDi5iJZ8o3jNPXBsd9ckzt07oHtJVLrp6"
+                  }}
+                />
+              </TouchableHighlight>
+              <View style={styles.textContainer}>
+                <Text style={styles.innertext}>Treatment Plan</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigate("Settings")}
+            >
+              <TouchableHighlight style={styles.imageContainer}>
+                <Image
+                  style={styles.image}
+                  source={{
+                    uri:
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTM3QB7ooA8Iaf7soYlCuYcoDSo4liUaJ5YGpP0JoG3pbm3pnO4xA"
+                  }}
+                />
+              </TouchableHighlight>
+              <View style={styles.textContainer}>
+                <Text style={styles.innertext}>Account Settings</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
       </View>
     );
@@ -76,7 +155,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     backgroundColor: "white",
-    overflow: "hidden",
+    overflow: "hidden"
   },
   contentContainer: {
     paddingTop: 30,
@@ -85,7 +164,7 @@ const styles = StyleSheet.create({
   logoContainer: {
     marginTop: 0,
     padding: 10,
-    marginBottom: 10,    
+    marginBottom: 10,
     borderBottomWidth: 3,
     borderColor: "rgba(61,176,215,0.2)"
   },
