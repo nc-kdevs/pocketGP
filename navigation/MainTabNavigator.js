@@ -94,15 +94,6 @@ SettingsStack.navigationOptions = {
 const AnalyticsStack = createStackNavigator({
   Analytics: AnalyticsScreen
 });
-AnalyticsStack.navigationOptions = {
-  tabBarLabel: "Account",
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === "ios" ? "ios-options" : "md-options"}
-    />
-  )
-};
 
 AnalyticsStack.navigationOptions = {
   tabBarLabel: "Analytics",

@@ -1,29 +1,40 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Image,
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
   Button,
 } from 'react-native';
-import { WebBrowser } from 'expo';
 import ChartGraph from '../components/Chart';
 
-export default class AnalyticsScreen extends Component {
+const redData = [ 20, 30, 35, 37, 40, 40, 40 ]
+const blueData = [ 40, 35, 25, 20, 20, 15, 10 ]
+const greenData = [ 40, 50, 25, 50, 35, 20, 50 ]
+
+const red = "Redness"
+const blue= "Bruising"
+const green= "Infection"
+
+
+export default class AnalyticsScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
 
   state = {
     isPatient: true,
-  }
+  };
+
   render() {
     console.log('analytics page')
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        <ScrollView 
+        style={styles.container} 
+        contentContainerStyle={styles.contentContainer}
+        >
         <View style={styles.logoContainer}>
           <Image
             source={require("../assets/images/logo.png")}
@@ -31,15 +42,16 @@ export default class AnalyticsScreen extends Component {
           />
           <Text style={styles.mainHeaderText}>Pocket GP</Text>
         </View>
-          {this.state.isPatient
-            && <View style={styles.formContainer}>
-              <Button title="Option1" />
-            </View>}
             <View>
-              <ChartGraph />
+              <ChartGraph data={redData} name={red}/>
+            </View>
+            <View>
+              <ChartGraph data={blueData} name={blue}/>
+            </View>
+            <View>
+              <ChartGraph data={greenData} name={green}/>
             </View>
         </ScrollView>
-
       </View>
     );
   }
