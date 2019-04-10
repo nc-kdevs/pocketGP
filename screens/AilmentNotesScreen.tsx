@@ -1,8 +1,16 @@
-import React from 'react';
-import { Text, View, TouchableOpacity, Button, Image, StyleSheet, ScrollView, KeyboardAvoidingViewBase } from 'react-native';
-import { Camera, Permissions } from 'expo';
+import React from "react";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Button,
+  Image,
+  StyleSheet,
+  ScrollView
+} from "react-native";
+import { Camera, Permissions } from "expo";
 import t from "tcomb-form-native";
-import axios from 'axios';
+import axios from "axios";
 
 export default class AilmentNotes extends React.Component {
   static navigationOptions = {
@@ -14,12 +22,12 @@ export default class AilmentNotes extends React.Component {
     image: null,
     imageURL: null,
     hasCameraPermission: null,
-    type: Camera.Constants.Type.back,
+    type: Camera.Constants.Type.back
   };
 
   async componentDidMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    this.setState({ hasCameraPermission: status === 'granted' });
+    this.setState({ hasCameraPermission: status === "granted" });
   }
 
   render() {
@@ -44,43 +52,60 @@ export default class AilmentNotes extends React.Component {
             </View>
 
             <View style={styles.formContainer}>
-              <Text style={styles.cameraText}>If your ailment is visual, please use the camera below.</Text>
-              <Text style={styles.cameraText}>This will help keep you GP up to date with how the ailment is progressing</Text>
-              {image
-                ? <View>
+              <Text style={styles.cameraText}>
+                If your ailment is visual, please use the camera below.
+              </Text>
+              <Text style={styles.cameraText}>
+                This will help keep you GP up to date with how the ailment is
+                progressing
+              </Text>
+              {image ? (
+                <View>
                   <Image source={{ uri: image }} style={styles.camera} />
                   <TouchableOpacity
                     style={{
-                      alignItems: 'center',
+                      alignItems: "center"
                     }}
                     onPress={() => this.cancelSnap()}
                   >
-                    <Image source={require("../assets/images/camera-cancel-icon.png")} style={styles.cancelCameraImage} />
+                    <Image
+                      source={require("../assets/images/camera-cancel-icon.png")}
+                      style={styles.cancelCameraImage}
+                    />
                   </TouchableOpacity>
                 </View>
-                : <View><Camera
-                  ref={(cam) => this.camera = cam}
-                  style={styles.camera}
-                  aspect={this.state.type}
-                />
+              ) : (
+                <View>
+                  <Camera
+                    ref={cam => (this.camera = cam)}
+                    style={styles.camera}
+                    aspect={this.state.type}
+                  />
                   <TouchableOpacity
                     style={{
-                      alignItems: 'center',
+                      alignItems: "center"
                     }}
                     onPress={() => this.snapPhoto()}
                   >
-                    <Image source={require("../assets/images/camera-icon.png")} style={styles.cameraImage} />
+                    <Image
+                      source={require("../assets/images/camera-icon.png")}
+                      style={styles.cameraImage}
+                    />
                   </TouchableOpacity>
-                </View>}
+                </View>
+              )}
               <Form
                 type={AilmentForm}
                 ref={(patchSetting: object) => (this._form = patchSetting)}
                 options={options}
               />
-              <Button title="Submit Changes" onPress={() => {
-                const value = this._form.getValue();
-                if (value) this.handleSubmit(value)
-              }} />
+              <Button
+                title="Submit Changes"
+                onPress={() => {
+                  const value = this._form.getValue();
+                  if (value) this.handleSubmit(value);
+                }}
+              />
             </View>
           </ScrollView>
         </View>
@@ -90,38 +115,42 @@ export default class AilmentNotes extends React.Component {
 
   // imgur stable baseURL: https://api.imgur.com/3/
 
-//   For accessing a user's account, please visit the OAuth2 section of the docs. OAuth Endpoints To access OAuth, the following endpoints must be used:
+  //   For accessing a user's account, please visit the OAuth2 section of the docs. OAuth Endpoints To access OAuth, the following endpoints must be used:
 
-// https://api.imgur.com/oauth2/addclient
-// https://api.imgur.com/oauth2/authorize
-// https://api.imgur.com/oauth2/token
-// You can also verify your OAuth 2.0 tokens by setting your header and visiting the page
+  // https://api.imgur.com/oauth2/addclient
+  // https://api.imgur.com/oauth2/authorize
+  // https://api.imgur.com/oauth2/token
+  // You can also verify your OAuth 2.0 tokens by setting your header and visiting the page
 
-// https://api.imgur.com/oauth2/secret
+  // https://api.imgur.com/oauth2/secret
 
-// Client ID - c6f21ab825b2cc5
-// Client Secret - 9d810a5a3b5a686ab332a445e4e6e9dce517d5d4
+  // Client ID - c6f21ab825b2cc5
+  // Client Secret - 9d810a5a3b5a686ab332a445e4e6e9dce517d5d4
 
-// post request URL: https://api.imgur.com/3/upload
-// url is on data.link (type: string)
-// POST "https://api.imgur.com/3/image" \
-//   --header "Authorization: Client-ID {{clientId}}" \
-//   --form "image=R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+  // post request URL: https://api.imgur.com/3/upload
+  // url is on data.link (type: string)
+  // POST "https://api.imgur.com/3/image" \
+  //   --header "Authorization: Client-ID {{clientId}}" \
+  //   --form "image=R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
 
   handleSubmit = (value: Object) => {
     const { image } = this.state;
     if (image) {
-      return axios
-      .post('https://api.imgur.com/3/image',
-        {image: image},
-        {
-          "headers": {
-          "Authorization": "Client-ID {c6f21ab825b2cc5}"
-          }
-        })
-      // .post('https://api.imgur.com/3/image', image)
-      .then(({ data }) => console.log(data))
-      .catch(err => console.log(err, '<-- imgur error'))
+      return (
+        axios
+          .post(
+            "https://api.imgur.com/3/image",
+            { image: image },
+            {
+              headers: {
+                Authorization: "Client-ID {c6f21ab825b2cc5}"
+              }
+            }
+          )
+          // .post('https://api.imgur.com/3/image', image)
+          .then(({ data }) => console.log(data))
+          .catch(err => console.log(err, "<-- imgur error"))
+      );
     }
     // const ailmentObj = {
     //   image: `${image}`,
@@ -142,22 +171,23 @@ export default class AilmentNotes extends React.Component {
   };
 
   cancelSnap = () => {
-    this.setState({ image: null })
-  }
+    this.setState({ image: null });
+  };
 
   snapPhoto = () => {
     if (this.camera) {
       const options = {
-        quality: 1, base64: true, fixOrientation: true,
+        quality: 1,
+        base64: true,
+        fixOrientation: true,
         exif: true
       };
-      this.camera.takePictureAsync(options)
-        .then(photo => {
-          photo.exif.Orientation = 1;
-          this.setState({ image: photo.uri });
-        })
+      this.camera.takePictureAsync(options).then(photo => {
+        photo.exif.Orientation = 1;
+        this.setState({ image: photo.uri });
+      });
     }
-  }
+  };
 }
 
 const AilmentForm = t.struct({
@@ -201,23 +231,23 @@ const options = {
     }
   },
   stylesheet: formStyles,
-  auto: 'placeholders'
+  auto: "placeholders"
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#fff"
   },
   camera: {
     flex: 1,
     height: 200,
     margin: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center"
   },
   cameraText: {
-    textAlign: 'center'
+    textAlign: "center"
   },
   contentContainer: {
     paddingTop: 30
@@ -249,7 +279,7 @@ const styles = StyleSheet.create({
     width: 50
   },
   cancelCameraImage: {
-    justifyContent: 'center',
+    justifyContent: "center",
     height: 50,
     width: 50
   },

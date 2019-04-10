@@ -9,10 +9,9 @@ import TabBarIcon from "../components/TabBarIcon";
 import LinksScreen from "../screens/LinksScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import HomePageScreen from "../screens/HomePageScreen";
-import AilmentNotesScreen from '../screens/AilmentNotesScreen';
-import AnalyticsScreen from '../screens/AilmentAnalytics';
-import GPHomePageScreen from "../screens/GPHomePageScreen";
 import AilmentNotesScreen from "../screens/AilmentNotesScreen";
+import AnalyticsScreen from "../screens/AilmentAnalytics";
+import GPHomePageScreen from "../screens/GPHomePageScreen";
 
 const HomePageStack = createStackNavigator({
   HomePage: HomePageScreen
@@ -83,9 +82,11 @@ SettingsStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === "ios"
-        ? `ios-information-circle${focused ? "" : "-outline"}`
-        : "md-information-circle"}
+      name={
+        Platform.OS === "ios"
+          ? `ios-information-circle${focused ? "" : "-outline"}`
+          : "md-information-circle"
+      }
     />
   )
 };
@@ -123,7 +124,5 @@ export default createBottomTabNavigator({
   AilmentNotesStack,
   AnalyticsStack,
   TreatmentStack,
-  LoginStack,
-  LinksStack,
   GPHomePageStack
 });

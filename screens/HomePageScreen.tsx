@@ -1,11 +1,7 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  ScrollView
-} from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
 import LoginScreen from "../components/Login";
-import { getUserByUsername, getSurgeryByUsername } from "../assets/utils.js"
+import { getUserByUsername, getSurgeryByUsername } from "../assets/utils.js";
 import PatientHome from "../components/PatientHome";
 
 export default class HomePageScreen extends React.Component {
@@ -17,8 +13,8 @@ export default class HomePageScreen extends React.Component {
   state = {
     isPatient: true,
     isLoggedIn: false,
-    user: {},
-  }
+    user: {}
+  };
 
   render() {
     const navigate = this.props.navigation;
@@ -28,88 +24,11 @@ export default class HomePageScreen extends React.Component {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
-      {this.state.isLoggedIn
-      ? <PatientHome navigate={navigate} />
-      : <LoginScreen signIn={this.handleSignIn} />}
-          <View style={styles.logoContainer}>
-            <Image
-              source={require("../assets/images/logo.png")}
-              style={styles.logoImage}
-            />
-            <Text style={styles.mainHeaderText}>Pocket GP</Text>
-          </View>
-          <View style={styles.content}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                navigate("AilmentNotes");
-              }}
-            >
-              <TouchableHighlight style={styles.imageContainer}>
-                <Image
-                  style={styles.image}
-                  source={{
-                    uri:
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWhCyDCBjeUbP6E6XtDZqiU6P5mK8BntDB1OpFoI5YqwMeBsHt"
-                  }}
-                />
-              </TouchableHighlight>
-              <View style={styles.textContainer}>
-                <Text style={styles.innertext}>Ailment Notes</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => navigate("Home")}
-            >
-              <TouchableHighlight style={styles.imageContainer}>
-                <Image
-                  style={styles.image}
-                  source={{
-                    uri:
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6-c6GABdTIfS6Rm1EIZdB8FlyGomnbrYSKNRKHvns2S9WVQroKQ"
-                  }}
-                />
-              </TouchableHighlight>
-              <View style={styles.textContainer}>
-                <Text style={styles.innertext}>Analytics</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => navigate("Home")}
-            >
-              <TouchableHighlight style={styles.imageContainer}>
-                <Image
-                  style={styles.image}
-                  source={{
-                    uri:
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_BoyG4HqSBqLQjOyCDi5iJZ8o3jNPXBsd9ckzt07oHtJVLrp6"
-                  }}
-                />
-              </TouchableHighlight>
-              <View style={styles.textContainer}>
-                <Text style={styles.innertext}>Treatment Plan</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => navigate("Settings")}
-            >
-              <TouchableHighlight style={styles.imageContainer}>
-                <Image
-                  style={styles.image}
-                  source={{
-                    uri:
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTM3QB7ooA8Iaf7soYlCuYcoDSo4liUaJ5YGpP0JoG3pbm3pnO4xA"
-                  }}
-                />
-              </TouchableHighlight>
-              <View style={styles.textContainer}>
-                <Text style={styles.innertext}>Account Settings</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
+          {this.state.isLoggedIn ? (
+            <PatientHome navigate={navigate} />
+          ) : (
+            <LoginScreen signIn={this.handleSignIn} />
+          )}
         </ScrollView>
       </View>
     );
@@ -119,28 +38,28 @@ export default class HomePageScreen extends React.Component {
     const username = value.username;
     const password = value.password;
     getUserByUsername(username)
-    .then((newPatient: Object) => {
-      if (newPatient.patient_password === password) {
-        this.setState({
-          user: newPatient,
-          isLoggedIn: true,
-          isPatient: true
-        })
-      }
-    })
-    .catch(() => 'sorry, not found')
+      .then((newPatient: Object) => {
+        if (newPatient.patient_password === password) {
+          this.setState({
+            user: newPatient,
+            isLoggedIn: true,
+            isPatient: true
+          });
+        }
+      })
+      .catch(() => "sorry, not found");
     getSurgeryByUsername(username)
-    .then((newSurgery: Object) => {
-      if (newSurgery.surgery_password === password) {
-        this.setState({
-          user: newSurgery,
-          isLoggedIn: true,
-          isPatient: false
-        })
-      }
-    })
-    .catch(() => 'sorry, not found')
-  }
+      .then((newSurgery: Object) => {
+        if (newSurgery.surgery_password === password) {
+          this.setState({
+            user: newSurgery,
+            isLoggedIn: true,
+            isPatient: false
+          });
+        }
+      })
+      .catch(() => "sorry, not found");
+  };
 }
 
 const styles = StyleSheet.create({
@@ -148,7 +67,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     flex: 1,
     flexWrap: "wrap",
-    textAlign: 'center'
+    textAlign: "center"
   },
   content: {
     flex: 1,
@@ -159,7 +78,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingTop: 30,
-    alignItems: 'center'
+    alignItems: "center"
   },
   logoContainer: {
     marginTop: 0,
