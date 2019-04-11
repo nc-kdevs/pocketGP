@@ -100,7 +100,7 @@ export default class AilmentNotes extends React.Component {
                 options={options}
               />
               <Button
-                title="Submit Changes"
+                title="SUBMIT CHANGES"
                 onPress={() => {
                   const value = this._form.getValue();
                   if (value) this.handleSubmit(value);
