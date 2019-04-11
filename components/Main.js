@@ -27,9 +27,10 @@ class Main extends Component {
   };
 
   state = {
-    name: "",
+    name: "KDEVS",
     toggleChat: true,
-    backPressed: false
+    backPressed: false,
+    patient: false
   };
 
   onPress = () => {
@@ -38,7 +39,8 @@ class Main extends Component {
       : this.setState({ toggleChat: true });
   };
 
-  onChangeText = name => this.setState({ name });
+  onChangeText = name =>
+    (this.state.patient = this.setState({ name, patient: false }));
 
   render() {
     return (
@@ -53,6 +55,11 @@ class Main extends Component {
               <Text style={styles.mainHeaderText}>Pocket GP</Text>
             </View>
             <Text style={styles.title}>Confirm your name:</Text>
+            {this.state.name ? (
+              <Text style={styles.emergencyText}>
+                This is for Emergency Use Only!
+              </Text>
+            ) : null}
             <TextInput
               style={styles.nameInput}
               placeHolder="Full Name"
@@ -127,6 +134,17 @@ const styles = StyleSheet.create({
     lineHeight: 48,
     textAlign: "right",
     marginRight: 20
+  },
+  emergencyText: {
+    marginLeft: offset * 3,
+    marginRight: offset * 3,
+    borderColor: "rgba(0,0,0,0.2)",
+    borderRadius: 5,
+    borderWidth: 1,
+    textAlign: "center",
+    fontSize: offset,
+    backgroundColor: "white",
+    color: "red"
   }
 });
 
