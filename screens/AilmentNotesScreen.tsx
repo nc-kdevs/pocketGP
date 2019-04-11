@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Text,
   View,
@@ -6,111 +6,114 @@ import {
   Button,
   Image,
   StyleSheet,
-  ScrollView
-} from "react-native";
-import { Camera, Permissions } from "expo";
-import t from "tcomb-form-native";
-import axios from "axios";
+  ScrollView,
+} from 'react-native';
+import { Camera, Permissions } from 'expo';
+import t from 'tcomb-form-native';
+import axios from 'axios';
 
 export default class AilmentNotes extends React.Component {
   static navigationOptions = {
     header: null,
-    title: "ailmentNotes"
+    title: 'ailmentNotes',
   };
 
   state = {
     image: null,
     imageURL: null,
     hasCameraPermission: null,
-    type: Camera.Constants.Type.back
+    type: Camera.Constants.Type.back,
   };
 
   async componentDidMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    this.setState({ hasCameraPermission: status === "granted" });
+    this.setState({ hasCameraPermission: status === 'granted' });
   }
 
   render() {
     const { hasCameraPermission, image } = this.state;
     if (hasCameraPermission === null) {
       return <View />;
-    } else if (hasCameraPermission === false) {
-      return <Text>No access to camera</Text>;
-    } else {
-      return (
-        <View style={styles.container}>
-          <ScrollView
-            style={styles.container}
-            contentContainerStyle={styles.contentContainer}
-          >
-            <View style={styles.logoContainer}>
-              <Image
-                source={require("../assets/images/logo.png")}
-                style={styles.logoImage}
-              />
-              <Text style={styles.mainHeaderText}>Pocket GP</Text>
-            </View>
-
-            <View style={styles.formContainer}>
-              <Text style={styles.cameraText}>
-                If your ailment is visual, please use the camera below.
-              </Text>
-              <Text style={styles.cameraText}>
-                This will help keep you GP up to date with how the ailment is
-                progressing
-              </Text>
-              {image ? (
-                <View>
-                  <Image source={{ uri: image }} style={styles.camera} />
-                  <TouchableOpacity
-                    style={{
-                      alignItems: "center"
-                    }}
-                    onPress={() => this.cancelSnap()}
-                  >
-                    <Image
-                      source={require("../assets/images/camera-cancel-icon.png")}
-                      style={styles.cancelCameraImage}
-                    />
-                  </TouchableOpacity>
-                </View>
-              ) : (
-                <View>
-                  <Camera
-                    ref={cam => (this.camera = cam)}
-                    style={styles.camera}
-                    aspect={this.state.type}
-                  />
-                  <TouchableOpacity
-                    style={{
-                      alignItems: "center"
-                    }}
-                    onPress={() => this.snapPhoto()}
-                  >
-                    <Image
-                      source={require("../assets/images/camera-icon.png")}
-                      style={styles.cameraImage}
-                    />
-                  </TouchableOpacity>
-                </View>
-              )}
-              <Form
-                type={AilmentForm}
-                ref={(patchSetting: object) => (this._form = patchSetting)}
-                options={options}
-              />
-              <Button
-                title="SUBMIT CHANGES"
-                onPress={() => {
-                  const value = this._form.getValue();
-                  if (value) this.handleSubmit(value);
-                }}
-              />
-            </View>
-          </ScrollView>
-        </View>
-      );
     }
+    if (hasCameraPermission === false) {
+      return <Text>No access to camera</Text>;
+    }
+    return (
+      <View style={styles.container}>
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.contentContainer}
+        >
+          <View style={styles.logoContainer}>
+            <Image
+              source={require('../assets/images/logo.png')}
+              style={styles.logoImage}
+            />
+            <Text style={styles.mainHeaderText}>Pocket GP</Text>
+          </View>
+
+          <View style={styles.formContainer}>
+            <Text style={styles.cameraText}>
+              If your ailment is visual, please use the camera below.
+            </Text>
+            <Text style={styles.cameraText}>
+              This will help keep you GP up to date with how the ailment is
+              progressing
+            </Text>
+            <Text style={styles.warningText}>
+              Try to keep the lighting consistent for better results
+            </Text>
+            {image ? (
+              <View>
+                <Image source={{ uri: image }} style={styles.camera} />
+                <TouchableOpacity
+                  style={{
+                    alignItems: 'center',
+                  }}
+                  onPress={() => this.cancelSnap()}
+                >
+                  <Image
+                    source={require('../assets/images/camera-cancel-icon.png')}
+                    style={styles.cancelCameraImage}
+                  />
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <View>
+                <Camera
+                  ref={cam => (this.camera = cam)}
+                  style={styles.camera}
+                  aspect={this.state.type}
+                />
+                <TouchableOpacity
+                  style={{
+                    alignItems: 'center',
+                  }}
+                  onPress={() => this.snapPhoto()}
+                >
+                  <Image
+                    source={require('../assets/images/camera-icon.png')}
+                    style={styles.cameraImage}
+                  />
+                </TouchableOpacity>
+              </View>
+            )}
+            <Form
+              type={AilmentForm}
+              ref={(patchSetting: object) => (this._form = patchSetting)}
+              options={options}
+            />
+            <Button
+              title='SUBMIT CHANGES'
+              onPress={() => {
+                const value = this._form.getValue();
+                if (value) this.handleSubmit(value);
+              }}
+            />
+          </View>
+        </ScrollView>
+      </View>
+    );
   }
 
   // imgur stable baseURL: https://api.imgur.com/3/
@@ -139,17 +142,17 @@ export default class AilmentNotes extends React.Component {
       return (
         axios
           .post(
-            "https://api.imgur.com/3/image",
-            { image: image },
-            {
-              headers: {
-                Authorization: "Client-ID {c6f21ab825b2cc5}"
-              }
-            }
+            'https://api.imgur.com/3/image',
+            { image },
+          {
+            headers: {
+                Authorization: 'Client-ID {c6f21ab825b2cc5}',
+              },
+          },
           )
           // .post('https://api.imgur.com/3/image', image)
           .then(({ data }) => console.log(data))
-          .catch(err => console.log(err, "<-- imgur error"))
+          .catch(err => console.log(err, '<-- imgur error'))
       );
     }
     // const ailmentObj = {
@@ -168,11 +171,11 @@ export default class AilmentNotes extends React.Component {
     //   this.setState({ image: null })
     // })
     // .catch(err => console.log(err, '<-- BE error'))
-  };
+  }
 
   cancelSnap = () => {
     this.setState({ image: null });
-  };
+  }
 
   snapPhoto = () => {
     if (this.camera) {
@@ -180,14 +183,16 @@ export default class AilmentNotes extends React.Component {
         quality: 1,
         base64: true,
         fixOrientation: true,
-        exif: true
+        exif: true,
+        // ratio: '16:9',
       };
       this.camera.takePictureAsync(options).then(photo => {
         photo.exif.Orientation = 1;
         this.setState({ image: photo.uri });
       });
+      // this.camera.ratio = '16:9';
     }
-  };
+  }
 }
 
 const AilmentForm = t.struct({
@@ -195,7 +200,7 @@ const AilmentForm = t.struct({
   name: t.String,
   description: t.String,
   prescription: t.maybe(t.String),
-  treatment: t.maybe(t.String)
+  treatment: t.maybe(t.String),
 });
 
 const Form = t.form.Form;
@@ -204,50 +209,56 @@ const formStyles = {
   ...Form.stylesheet,
   controlLabel: {
     normal: {
-      color: "#000",
+      color: '#000',
       fontSize: 18,
       marginBottom: 7,
-      fontWeight: "600"
+      fontWeight: '600',
     },
     error: {
-      color: "red",
+      color: 'red',
       fontSize: 18,
       marginBottom: 7,
-      fontWeight: "600"
-    }
-  }
+      fontWeight: '600',
+    },
+  },
 };
 
 const options = {
   fields: {
     type: {
-      error: "Please give type of ailment (e.g rash, bruise, cough...)"
+      error: 'Please give type of ailment (e.g rash, bruise, cough...)',
     },
     name: {
-      error: "Please give name of ailment, if unknown please put 'unknown'"
+      error: "Please give name of ailment, if unknown please put 'unknown'",
     },
     description: {
-      error: "a short description of how you feel"
-    }
+      error: 'a short description of how you feel',
+    },
   },
   stylesheet: formStyles,
-  auto: "placeholders"
+  auto: 'placeholders',
 };
 
 const styles = StyleSheet.create({
+  warningText: {
+    color: 'red',
+    textAlign: 'center',
+    fontWeight: '600',
+    marginBottom: 10,
+  },
   container: {
     flex: 1,
-    backgroundColor: "#fff"
+    backgroundColor: '#fff',
   },
   camera: {
     flex: 1,
     height: 200,
     margin: 0,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     padding: 2,
     borderWidth: 2,
-    borderColor: '#00BFFF'
+    borderColor: '#00BFFF',
   },
   cameraImage: {
     marginVertical: 10,
@@ -256,59 +267,59 @@ const styles = StyleSheet.create({
     width: 50,
   },
   cameraText: {
-    textAlign: "center",
+    textAlign: 'center',
     paddingBottom: 10,
-    fontSize: 16
+    fontSize: 16,
   },
   contentContainer: {
-    paddingTop: 30
+    paddingTop: 30,
   },
   formContainer: {
-    justifyContent: "center",
-    padding: 10
+    justifyContent: 'center',
+    padding: 10,
   },
   logoContainer: {
     marginTop: 0,
     padding: 10,
     marginBottom: 10,
     borderBottomWidth: 3,
-    borderColor: "rgba(61,176,215,0.2)"
+    borderColor: 'rgba(61,176,215,0.2)',
   },
   logoImage: {
-    position: "absolute",
+    position: 'absolute',
     top: 0,
     width: 40,
     height: 50,
-    resizeMode: "center",
-    marginLeft: 20
+    resizeMode: 'center',
+    marginLeft: 20,
   },
   cancelCameraImage: {
-    justifyContent: "center",
+    justifyContent: 'center',
     height: 50,
-    width: 50
+    width: 50,
   },
   mainHeaderText: {
     fontSize: 36,
-    color: "rgba(0, 0, 0, 1)",
+    color: 'rgba(0, 0, 0, 1)',
     lineHeight: 48,
-    textAlign: "right",
-    marginRight: 20
+    textAlign: 'right',
+    marginRight: 20,
   },
   text: {
     fontSize: 16,
-    color: "rgba(0, 0, 0, 1)",
+    color: 'rgba(0, 0, 0, 1)',
     lineHeight: 24,
-    textAlign: "center"
+    textAlign: 'center',
   },
   helpContainer: {
     marginTop: 10,
-    alignItems: "center"
+    alignItems: 'center',
   },
   helpLink: {
-    paddingVertical: 15
+    paddingVertical: 15,
   },
   helpLinkText: {
     fontSize: 16,
-    color: "#00BFFF"
-  }
+    color: '#00BFFF',
+  },
 });

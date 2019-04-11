@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { GiftedChat, SystemMessage } from "react-native-gifted-chat";
+import { GiftedChat } from "react-native-gifted-chat";
 
 import Fire from "../Fire";
 
@@ -15,24 +15,10 @@ class Chat extends Component {
     };
   }
 
-  renderSystemMessage = props => {
-    return (
-      <SystemMessage
-        {...props}
-        containerStyle={{
-          marginBottom: 15
-        }}
-        textStyle={{
-          fontSize: 14
-        }}
-      />
-    );
-  };
-
   render() {
+    console.log(this.state.messages);
     return (
       <GiftedChat
-        renderSystemMessage={this.renderSystemMessage}
         messages={this.state.messages}
         onSend={Fire.shared.send}
         user={this.user}

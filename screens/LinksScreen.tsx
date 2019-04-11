@@ -23,7 +23,7 @@ export default class HomePageScreen extends React.Component {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         />
-        <Main />
+        <Main user={this.state.user} />
       </View>
     );
   }
