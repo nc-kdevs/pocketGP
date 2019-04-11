@@ -11,6 +11,7 @@ import {
 import { Camera, Permissions } from 'expo';
 import t from 'tcomb-form-native';
 import axios from 'axios';
+import { getAilmentsByUsername } from '../assets/utils.js'
 
 export default class AilmentNotes extends React.Component {
   static navigationOptions = {
@@ -23,14 +24,57 @@ export default class AilmentNotes extends React.Component {
     imageURL: null,
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
+    isPatient: false,
+    ailments: [{
+        ailment_description: "Woke up with this bruise",
+        ailment_id: 16,
+        ailment_name: "Unknown",
+        ailment_type: "Bruise",
+        date: "09:02 10-04-2019",
+        image: "https://i.imgur.com/bXxHmiy.jpg",
+        patient_username: "KDEVS",
+        prescription: null,
+        treatment_plan: null,
+      },
+      {
+        ailment_description: "Got bigger I think",
+        ailment_id: 17,
+        ailment_name: "Unknown",
+        ailment_type: "Bruise",
+        date: "08:44 11-04-2019",
+        image: "https://i.imgur.com/f0NTemp.jpg",
+        patient_username: "KDEVS",
+        prescription: null,
+        treatment_plan: null,
+      },
+      {
+        ailment_description: "Hurts on touch",
+        ailment_id: 18,
+        ailment_name: "Unknown",
+        ailment_type: "Bruise",
+        date: "09:13 12-04-2019",
+        image: "https://i.imgur.com/xKHOJk4.jpg",
+        patient_username: "KDEVS",
+        prescription: null,
+        treatment_plan: null,
+      },
+    ]
   };
 
   async componentDidMount() {
+    // getAilmentsByUsername()
+    // .then((ailments) => {
+    //   this.setState({ ailments, })
+    // })
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === 'granted' });
   }
 
   render() {
+    // console.log(this.state.ailments)
+    const ailment1 = this.state.ailments[0];
+    const ailment2 = this.state.ailments[1];
+    const ailment3 = this.state.ailments[2];
     const { hasCameraPermission, image } = this.state;
     if (hasCameraPermission === null) {
       return <View />;
@@ -52,7 +96,8 @@ export default class AilmentNotes extends React.Component {
             <Text style={styles.mainHeaderText}>Pocket GP</Text>
           </View>
 
-          <View style={styles.formContainer}>
+          {this.state.isPatient
+            ? <View style={styles.formContainer}>
             <Text style={styles.cameraText}>
               If your ailment is visual, please use the camera below.
             </Text>
@@ -111,6 +156,51 @@ export default class AilmentNotes extends React.Component {
               }}
             />
           </View>
+          : <View>
+            <Text style={styles.mainText}>KDEVS Ailment Notes:</Text>
+            <View>
+              <View style={styles.ailmentContainer}>
+                <Text style={styles.ailmentText}>Decription: {ailment1.ailment_description}</Text>
+                <Text style={styles.ailmentText}>Condition (if known): {ailment1.ailment_name}</Text>
+                <Text style={styles.ailmentText}>Type: {ailment1.ailment_type}</Text>
+                <Text style={styles.ailmentText}>Date: {ailment1.date}</Text>
+                <Text style={styles.ailmentText}>Prescription: null</Text>
+                <Text style={styles.ailmentText}>Treatment Plan: null</Text>
+                <Image
+                    source={require('../assets/images/KDEVS1.jpg')}
+                    style={styles.ailmentImage}
+                  />
+              </View>
+            </View>
+            <View>
+              <View style={styles.ailmentContainer}>
+                <Text style={styles.ailmentText}>Decription: {ailment2.ailment_description}</Text>
+                <Text style={styles.ailmentText}>Condition (if known): {ailment2.ailment_name}</Text>
+                <Text style={styles.ailmentText}>Type: {ailment2.ailment_type}</Text>
+                <Text style={styles.ailmentText}>Date: {ailment2.date}</Text>
+                <Text style={styles.ailmentText}>Prescription: null</Text>
+                <Text style={styles.ailmentText}>Treatment Plan: null</Text>
+                <Image
+                    source={require('../assets/images/KDEVS2.jpg')}
+                    style={styles.ailmentImage}
+                  />
+              </View>
+            </View>
+            <View>
+              <View style={styles.ailmentContainer}>
+                <Text style={styles.ailmentText}>Decription: {ailment3.ailment_description}</Text>
+                <Text style={styles.ailmentText}>Condition (if known): {ailment3.ailment_name}</Text>
+                <Text style={styles.ailmentText}>Type: {ailment3.ailment_type}</Text>
+                <Text style={styles.ailmentText}>Date: {ailment3.date}</Text>
+                <Text style={styles.ailmentText}>Prescription: null</Text>
+                <Text style={styles.ailmentText}>Treatment Plan: null</Text>
+                <Image
+                    source={require('../assets/images/KDEVS3.jpg')}
+                    style={styles.ailmentImage}
+                  />
+              </View>
+            </View>
+          </View>}
         </ScrollView>
       </View>
     );
@@ -274,6 +364,16 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingTop: 30,
   },
+  ailmentContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 10,
+    padding: 10,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    backgroundColor: 'rgba(61,176,215,0.2)',
+    borderColor: '#00BFFF',
+  },
   formContainer: {
     justifyContent: 'center',
     padding: 10,
@@ -292,6 +392,18 @@ const styles = StyleSheet.create({
     height: 50,
     resizeMode: 'center',
     marginLeft: 20,
+  },
+  ailmentImage: {
+    height: 200,
+    width: 150
+  },
+  ailmentText: {
+    fontSize: 16,
+    textAlign: 'center'
+  },
+  mainText: {
+    fontSize: 18,
+    textAlign: 'center'
   },
   cancelCameraImage: {
     justifyContent: 'center',

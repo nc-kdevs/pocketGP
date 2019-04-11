@@ -1,6 +1,5 @@
 import axios from 'axios';
 axios.defaults.baseURL = 'https://pocket-gp.herokuapp.com/api';
-import { Notifications } from 'expo';
 
 export const getUserByUsername = (username) => {
   return axios
@@ -18,6 +17,15 @@ export const getSurgeryByUsername = (username) => {
     const surgeryByUsername = data.surgeries.filter(surgery => surgery.surgery_username === username);
     // console.log(surgeryByUsername, '<-- surgery in utils')
     return surgeryByUsername[0];
+  })
+};
+
+export const getAilmentsByUsername = () => {
+  return axios
+  .get(`/patients/KDEVS/ailments`)
+  .then(({ data }) => {
+    const ailmentsByUsername = data.ailments.filter(ailment => ailment.ailment_id > 15);
+    return ailmentsByUsername;
   })
 };
 

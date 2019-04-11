@@ -14,8 +14,8 @@ const blueData = [ 25, 40, 20 ]
 const greenData = [ 20, 25, 45 ]
 
 const red = "Redness"
-const blue= "Bruising"
-const green= "Infection"
+const blue = "Bruising"
+const green = "Infection"
 
 
 export default class AnalyticsScreen extends React.Component {
@@ -28,29 +28,28 @@ export default class AnalyticsScreen extends React.Component {
   };
 
   render() {
-    console.log('analytics page')
     return (
       <View style={styles.container}>
-        <ScrollView 
-        style={styles.container} 
-        contentContainerStyle={styles.contentContainer}
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.contentContainer}
         >
-        <View style={styles.logoContainer}>
-          <Image
-            source={require("../assets/images/logo.png")}
-            style={styles.logoImage}
-          />
-          <Text style={styles.mainHeaderText}>Pocket GP</Text>
-        </View>
-            <View>
-              <ChartGraph data={redData} name={red}/>
-            </View>
-            <View>
-              <ChartGraph data={blueData} name={blue}/>
-            </View>
-            <View>
-              <ChartGraph data={greenData} name={green}/>
-            </View>
+          <View style={styles.logoContainer}>
+            <Image
+              source={require("../assets/images/logo.png")}
+              style={styles.logoImage}
+            />
+            <Text style={styles.mainHeaderText}>Pocket GP</Text>
+          </View>
+          <View>
+            <ChartGraph data={redData} name={red} />
+          </View>
+          <View>
+            <ChartGraph data={blueData} name={blue} />
+          </View>
+          <View>
+            <ChartGraph data={greenData} name={green} />
+          </View>
         </ScrollView>
       </View>
     );
@@ -65,7 +64,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   contentContainer: {
-    paddingTop: 30,
+    paddingTop: 10,
   },
   logoContainer: {
     marginTop: 0,

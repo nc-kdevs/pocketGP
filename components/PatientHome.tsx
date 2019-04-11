@@ -12,7 +12,7 @@ export default class PatientHome extends React.Component {
   render() {
     const { navigate } = this.props.navigate;
     return (
-      <View>  
+      <View>
         <View style={styles.content}>
           <TouchableOpacity
             style={styles.button}
@@ -35,7 +35,7 @@ export default class PatientHome extends React.Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigate("Home")}
+            onPress={() => navigate("Analytics")}
           >
             <TouchableHighlight style={styles.imageContainer}>
               <Image
@@ -52,7 +52,7 @@ export default class PatientHome extends React.Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigate("Home")}
+            onPress={() => { navigate("Chat", { user: 'KDEVS' }) }}
           >
             <TouchableHighlight style={styles.imageContainer}>
               <Image
@@ -64,7 +64,7 @@ export default class PatientHome extends React.Component {
               />
             </TouchableHighlight>
             <View style={styles.textContainer}>
-              <Text style={styles.innertext}>Treatment Plan</Text>
+              <Text style={styles.innertext}>GP Chat</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
@@ -84,8 +84,8 @@ export default class PatientHome extends React.Component {
               <Text style={styles.innertext}>Account Settings</Text>
             </View>
           </TouchableOpacity>
-          </View>
-          </View>
+        </View>
+      </View>
     );
   }
 }
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   logoContainer: {
     marginTop: 0,
     padding: 10,
-    marginBottom: 10,    
+    marginBottom: 10,
     borderBottomWidth: 3,
     borderColor: "rgba(61,176,215,0.2)"
   },

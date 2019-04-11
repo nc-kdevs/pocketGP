@@ -3,7 +3,7 @@ import { StyleSheet, View, ScrollView } from 'react-native';
 import { getUserByUsername } from '../assets/utils.js';
 import Main from '../components/Main.js';
 
-export default class HomePageScreen extends React.Component {
+export default class ChatScreen extends React.Component {
   static navigationOptions = {
     header: null,
     title: 'homePage',
@@ -11,12 +11,13 @@ export default class HomePageScreen extends React.Component {
 
   state = {
     isLoggedIn: true,
-    user: {},
+    user: { username: 'KDEVS' },
   };
 
   render() {
-    console.log(this.state.isLoggedIn, this.state.user);
-    const { navigate } = this.props.navigation;
+    // console.log(this.state.isLoggedIn, this.state.user);
+    // const { navigate } = this.props.navigation;
+    // let username = navigate.getParam('user', '')
     return (
       <View style={styles.container}>
         <ScrollView
