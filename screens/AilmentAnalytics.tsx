@@ -24,7 +24,7 @@ export default class AnalyticsScreen extends React.Component {
   };
 
   state = {
-    isPatient: true,
+    isPatient: false,
   };
 
   render() {
