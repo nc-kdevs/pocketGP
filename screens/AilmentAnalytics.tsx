@@ -9,13 +9,13 @@ import {
 } from 'react-native';
 import ChartGraph from '../components/Chart';
 
-const redData = [ 20, 30, 35, 37, 40, 40, 40 ]
-const blueData = [ 40, 35, 25, 20, 20, 15, 10 ]
-const greenData = [ 40, 50, 25, 50, 35, 20, 50 ]
+const redData = [20, 30, 35, 37, 40, 40, 40]
+const blueData = [40, 35, 25, 20, 20, 15, 10]
+const greenData = [40, 50, 25, 50, 35, 20, 50]
 
 const red = "Redness"
-const blue= "Bruising"
-const green= "Infection"
+const blue = "Bruising"
+const green = "Infection"
 
 
 export default class AnalyticsScreen extends React.Component {
@@ -28,29 +28,28 @@ export default class AnalyticsScreen extends React.Component {
   };
 
   render() {
-    console.log('analytics page')
     return (
       <View style={styles.container}>
-        <ScrollView 
-        style={styles.container} 
-        contentContainerStyle={styles.contentContainer}
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.contentContainer}
         >
-        <View style={styles.logoContainer}>
-          <Image
-            source={require("../assets/images/logo.png")}
-            style={styles.logoImage}
-          />
-          <Text style={styles.mainHeaderText}>Pocket GP</Text>
-        </View>
-            <View>
-              <ChartGraph data={redData} name={red}/>
-            </View>
-            <View>
-              <ChartGraph data={blueData} name={blue}/>
-            </View>
-            <View>
-              <ChartGraph data={greenData} name={green}/>
-            </View>
+          <View style={styles.logoContainer}>
+            <Image
+              source={require("../assets/images/logo.png")}
+              style={styles.logoImage}
+            />
+            <Text style={styles.mainHeaderText}>Pocket GP</Text>
+          </View>
+          <View>
+            <ChartGraph data={redData} name={red} />
+          </View>
+          <View>
+            <ChartGraph data={blueData} name={blue} />
+          </View>
+          <View>
+            <ChartGraph data={greenData} name={green} />
+          </View>
         </ScrollView>
       </View>
     );

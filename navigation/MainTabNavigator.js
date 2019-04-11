@@ -6,7 +6,7 @@ import {
 } from "react-navigation";
 
 import TabBarIcon from "../components/TabBarIcon";
-import LinksScreen from "../screens/LinksScreen";
+import ChatScreen from "../screens/ChatScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import HomePageScreen from "../screens/HomePageScreen";
 import AilmentNotesScreen from "../screens/AilmentNotesScreen";
@@ -40,11 +40,11 @@ AilmentNotesStack.navigationOptions = {
   )
 };
 
-const TreatmentStack = createStackNavigator({
-  Treatment: LinksScreen
+const ChatStack = createStackNavigator({
+  Chat: ChatScreen
 });
 
-TreatmentStack.navigationOptions = {
+ChatStack.navigationOptions = {
   tabBarLabel: "GP Chat",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -90,6 +90,6 @@ export default createBottomTabNavigator({
   HomePageStack,
   AilmentNotesStack,
   AnalyticsStack,
-  TreatmentStack,
+  ChatStack,
   SettingsStack
 });

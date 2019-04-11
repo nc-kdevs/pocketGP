@@ -13,7 +13,7 @@ export default class HomePageScreen extends React.Component {
 
   state = {
     isPatient: true,
-    isLoggedIn: true,
+    isLoggedIn: false,
     user: {}
   };
 
@@ -25,20 +25,20 @@ export default class HomePageScreen extends React.Component {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
-        {this.state.isLoggedIn && <View style={styles.logoContainer}>
-          <Image
-            source={require("../assets/images/logo.png")}
-            style={styles.logoImage}
-          />
+          {this.state.isLoggedIn && <View style={styles.logoContainer}>
+            <Image
+              source={require("../assets/images/logo.png")}
+              style={styles.logoImage}
+            />
             <Text style={styles.mainHeaderText}>Pocket GP</Text>
           </View>}
           {this.state.isLoggedIn
-          ? ((this.state.isPatient)
-            ? <PatientHome navigate={navigate} />
-            : <View style={styles.center}><GPHomePageScreen /></View>)
-          : <View style={styles.center}><LoginScreen
-          signIn={this.handleSignIn} /></View>}
-          
+            ? ((this.state.isPatient)
+              ? <PatientHome navigate={navigate} />
+              : <View style={styles.center}><GPHomePageScreen /></View>)
+            : <View style={styles.center}><LoginScreen
+              signIn={this.handleSignIn} /></View>}
+
         </ScrollView>
       </View>
     );

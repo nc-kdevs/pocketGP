@@ -15,20 +15,6 @@ class Chat extends Component {
     };
   }
 
-  renderSystemMessage = props => {
-    return (
-      <SystemMessage
-        {...props}
-        containerStyle={{
-          marginBottom: 15
-        }}
-        textStyle={{
-          fontSize: 14
-        }}
-      />
-    );
-  };
-
   render() {
     return (
       <GiftedChat

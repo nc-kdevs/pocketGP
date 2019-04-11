@@ -27,13 +27,13 @@ class Main extends Component {
   };
 
   state = {
-    name: "",
-    toggleChat: true,
+    name: "KDEVS",
+    toggleChat: false,
     backPressed: false
   };
 
   onPress = () => {
-    this.state.toggleChat
+    this.state.name
       ? this.setState({ toggleChat: false })
       : this.setState({ toggleChat: true });
   };
@@ -41,6 +41,9 @@ class Main extends Component {
   onChangeText = name => this.setState({ name });
 
   render() {
+    // const { navigation } = this.props;
+    // const username = navigation.getParam('user', '');
+    // console.log(username)
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         {this.state.toggleChat ? (
@@ -65,8 +68,8 @@ class Main extends Component {
             </TouchableOpacity>
           </View>
         ) : (
-          <Chat name={this.state.name} />
-        )}
+            <Chat name={this.state.name} />
+          )}
       </KeyboardAvoidingView>
     );
   }
