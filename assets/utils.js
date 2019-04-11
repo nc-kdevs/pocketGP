@@ -37,9 +37,9 @@ export const localNotification = {
 };
 
 let t = new Date();
-t.setSeconds(t.getSeconds() + 10);
+t.setSeconds(t.getSeconds() + 120);
 
 export const schedulingOptions = {
     time: (new Date()).getTime() + 5000,
-    repeat: 'minute'
+    repeat: 'day'
   };
