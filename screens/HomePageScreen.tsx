@@ -13,16 +13,16 @@ export default class HomePageScreen extends React.Component {
   };
 
   state = {
-    isPatient: false,
-    isLoggedIn: true,
+    isPatient: true,
+    isLoggedIn: false,
     user: {}
   };
 
   async componentDidMount() {
-    let result = await   
-    Permissions.askAsync(Permissions.NOTIFICATIONS);
+    let result = await
+      Permissions.askAsync(Permissions.NOTIFICATIONS);
     if (Constants.lisDevice && result.status === 'granted') {
-     console.log('Notification permissions granted.')
+      console.log('Notification permissions granted.')
     }
   }
 
@@ -34,24 +34,24 @@ export default class HomePageScreen extends React.Component {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
-        {/* <Button
+          {/* <Button
           title="TEST"
           onPress={this.testNotifications}
         /> */}
-        {this.state.isLoggedIn && <View style={styles.logoContainer}>
-          <Image
-            source={require("../assets/images/logo.png")}
-            style={styles.logoImage}
-          />
+          {this.state.isLoggedIn && <View style={styles.logoContainer}>
+            <Image
+              source={require("../assets/images/logo.png")}
+              style={styles.logoImage}
+            />
             <Text style={styles.mainHeaderText}>Pocket GP</Text>
           </View>}
           {this.state.isLoggedIn
-          ? ((this.state.isPatient)
-            ? <PatientHome navigate={navigate} />
-            : <View style={styles.center}><GPHomePageScreen /></View>)
-          : <View style={styles.center}><LoginScreen
-          signIn={this.handleSignIn} /></View>}
-          
+            ? ((this.state.isPatient)
+              ? <PatientHome navigate={navigate} />
+              : <View style={styles.center}><GPHomePageScreen /></View>)
+            : <View style={styles.center}><LoginScreen
+              signIn={this.handleSignIn} /></View>}
+
         </ScrollView>
       </View>
     );
