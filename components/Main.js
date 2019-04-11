@@ -5,9 +5,20 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  Image
+  Image,
+  KeyboardAvoidingView
 } from "react-native";
 import Chat from "../components/Chat.js";
+import { YellowBox } from "react-native";
+import _ from "lodash";
+
+YellowBox.ignoreWarnings(["Setting a timer"]);
+const _console = _.clone(console);
+console.warn = message => {
+  if (message.indexOf("Setting a timer") <= -1) {
+    _console.warn(message);
+  }
+};
 
 class Main extends Component {
   static navigationOptions = {
@@ -30,7 +41,7 @@ class Main extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
         {this.state.toggleChat ? (
           <View>
             <View style={styles.logoContainer}>
@@ -55,7 +66,7 @@ class Main extends Component {
         ) : (
           <Chat name={this.state.name} />
         )}
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
