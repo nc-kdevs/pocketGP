@@ -107,9 +107,8 @@ const styles = StyleSheet.create({
     paddingTop: 30,
   },
   center: {
-    width: 300,
-    height: 500,
-    margin: 10
+    width: "100%",
+    height: "100%",
   },
   logoContainer: {
     marginTop: 0,

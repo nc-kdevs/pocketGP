@@ -11,7 +11,7 @@ export default class ChatScreen extends React.Component {
 
   state = {
     isLoggedIn: true,
-    user: { username: 'KDEVS' },
+    user: { username: 'G' },
   };
 
   render() {

@@ -27,7 +27,7 @@ class Main extends Component {
   };
 
   state = {
-    name: "KDEVS",
+    name: "G",
     toggleChat: false,
     backPressed: false
   };
