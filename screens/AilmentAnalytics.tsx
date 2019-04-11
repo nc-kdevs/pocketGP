@@ -9,9 +9,9 @@ import {
 } from 'react-native';
 import ChartGraph from '../components/Chart';
 
-const redData = [20, 30, 35, 37, 40, 40, 40]
-const blueData = [40, 35, 25, 20, 20, 15, 10]
-const greenData = [40, 50, 25, 50, 35, 20, 50]
+const redData = [ 20, 40, 50 ]
+const blueData = [ 25, 40, 20 ]
+const greenData = [ 20, 25, 45 ]
 
 const red = "Redness"
 const blue = "Bruising"
