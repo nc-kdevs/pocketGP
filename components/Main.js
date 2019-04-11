@@ -3,7 +3,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
+  Button,
   View,
   Image,
   KeyboardAvoidingView
@@ -60,9 +60,7 @@ class Main extends Component {
               onChangeText={this.onChangeText}
               value={this.state.name}
             />
-            <TouchableOpacity onPress={this.onPress}>
-              <Text style={styles.buttonText}>Continue</Text>
-            </TouchableOpacity>
+              <Button title='CONTINUE'onPress={this.onPress} style={styles.buttonText}/>
           </View>
         ) : (
           <Chat name={this.state.name} />
@@ -99,15 +97,10 @@ const styles = StyleSheet.create({
   buttonText: {
     marginLeft: offset * 3,
     marginRight: offset * 3,
-    borderColor: "rgba(0,0,0,0.2)",
-    borderRadius: 5,
-    borderWidth: 1,
     textAlign: "center",
-    fontSize: offset,
-    color: "#00BFFF"
   },
   logoContainer: {
-    marginTop: 0,
+    marginTop: 30,
     padding: 10,
     marginBottom: 10,
     borderBottomWidth: 3,

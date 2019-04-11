@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   contentContainer: {
-    paddingTop: 30,
+    paddingTop: 10,
   },
   logoContainer: {
     marginTop: 0,
