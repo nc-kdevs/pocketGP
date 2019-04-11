@@ -24,7 +24,7 @@ export default class AilmentNotes extends React.Component {
     imageURL: null,
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
-    isPatient: false,
+    isPatient: true,
     ailments: [{
         ailment_description: "Woke up with this bruise",
         ailment_id: 16,

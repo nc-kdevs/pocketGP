@@ -16,7 +16,7 @@ export default class SettingsScreen extends Component {
   };
 
   state = {
-    isPatient: false,
+    isPatient: true,
     isIncorrectPassword: false,
   };
 
