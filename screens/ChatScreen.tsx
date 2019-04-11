@@ -24,7 +24,7 @@ export default class ChatScreen extends React.Component {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         />
-        <Main />
+        <Main user={this.state.user} />
       </View>
     );
   }

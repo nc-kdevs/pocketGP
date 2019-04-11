@@ -35,7 +35,11 @@ AilmentNotesStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === "ios" ? "ios-add-circle-outline" : "md-add-circle-outline"}
+      name={
+        Platform.OS === "ios"
+          ? "ios-add-circle-outline"
+          : "md-add-circle-outline"
+      }
     />
   )
 };
@@ -49,7 +53,7 @@ ChatStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === "ios" ? "ios-link" : "md-link"}
+      name={Platform.OS === "ios" ? "ios-people" : "md-people"}
     />
   )
 };
