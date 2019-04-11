@@ -138,39 +138,39 @@ export default class AilmentNotes extends React.Component {
 
   handleSubmit = (value: Object) => {
     const { image } = this.state;
-    if (image) {
-      return (
-        axios
-          .post(
-            'https://api.imgur.com/3/image',
-            { image },
-          {
-            headers: {
-                Authorization: 'Client-ID {c6f21ab825b2cc5}',
-              },
-          },
-          )
-          // .post('https://api.imgur.com/3/image', image)
-          .then(({ data }) => console.log(data))
-          .catch(err => console.log(err, '<-- imgur error'))
-      );
-    }
-    // const ailmentObj = {
-    //   image: `${image}`,
-    //   ailment_type: value.type,
-    //   ailment_name: value.name,
-    //   ailment_description: value.description,
-    //   prescription: value.prescription,
-    //   treatment_plan: value.treatment
-    // };
-    // console.log(ailmentObj)
-    // return axios
-    // .post('https://pocket-gp.herokuapp.com/api/patients/spike/ailments', ailmentObj)
-    // .then(({ data }) => {
-    //   console.log(data, '<-- data')
-    //   this.setState({ image: null })
-    // })
-    // .catch(err => console.log(err, '<-- BE error'))
+    // if (image) {
+    //   return (
+    //     axios
+    //       .post(
+    //         'https://api.imgur.com/3/image',
+    //         { image },
+    //       {
+    //         headers: {
+    //             Authorization: 'Client-ID {c6f21ab825b2cc5}',
+    //           },
+    //       },
+    //       )
+    //       // .post('https://api.imgur.com/3/image', image)
+    //       .then(({ data }) => console.log(data))
+    //       .catch(err => console.log(err, '<-- imgur error'))
+    //   );
+    // }
+    const ailmentObj = {
+      image: `${image}`,
+      ailment_type: value.type,
+      ailment_name: value.name,
+      ailment_description: value.description,
+      prescription: value.prescription,
+      treatment_plan: value.treatment
+    };
+    console.log(ailmentObj)
+    return axios
+    .post('https://pocket-gp.herokuapp.com/api/patients/KDEVS/ailments', ailmentObj)
+    .then(({ data }) => {
+      console.log(data, '<-- data')
+      this.setState({ image: null })
+    })
+    .catch(err => console.log(err, '<-- BE error'))
   }
 
   cancelSnap = () => {
