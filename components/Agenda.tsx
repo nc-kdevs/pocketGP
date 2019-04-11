@@ -2,20 +2,24 @@ import React, { Component } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { Agenda } from "react-native-calendars";
 
+let counter = -5;
+
 class AgendaScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: {}
+      items: {},
     };
   }
 
   render() {
+    const navigate = this.props.navigation;
+    console.log(navigate)
     return (
       <Agenda
         items={this.state.items}
         loadItemsForMonth={this.loadItems.bind(this)}
-        selected={"2019-04-10"}
+        selected={"2019-04-12"}
         renderItem={this.renderItem.bind(this)}
         renderEmptyDate={this.renderEmptyDate.bind(this)}
         rowHasChanged={this.rowHasChanged.bind(this)}
@@ -28,12 +32,13 @@ class AgendaScreen extends Component {
       for (let i = -15; i < 85; i++) {
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
         const strTime = this.timeToString(time);
+        const agendaTime = this.formatTime();
         if (!this.state.items[strTime]) {
           this.state.items[strTime] = [];
           const numItems = Math.floor(Math.random() * 5);
           for (let j = 0; j < numItems; j++) {
             this.state.items[strTime].push({
-              name: "Appointment for " + strTime,
+              name: "Appointment at " + agendaTime,
               height: Math.max(50, Math.floor(Math.random() * 150))
             });
           }
@@ -62,7 +67,7 @@ class AgendaScreen extends Component {
   renderEmptyDate() {
     return (
       <View style={styles.emptyDate}>
-        <Text>This is empty date!</Text>
+        <Text>This is an empty date!</Text>
       </View>
     );
   }
@@ -74,6 +79,12 @@ class AgendaScreen extends Component {
   timeToString(time) {
     const date = new Date(time);
     return date.toISOString().split("T")[0];
+  }
+
+  formatTime() {
+    const formattedTime = `${counter}:00`;
+    counter ++;
+    return formattedTime;
   }
 }
 

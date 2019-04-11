@@ -13,7 +13,7 @@ export default class HomePageScreen extends React.Component {
   };
 
   state = {
-    isPatient: true,
+    isPatient: false,
     isLoggedIn: true,
     user: {}
   };
