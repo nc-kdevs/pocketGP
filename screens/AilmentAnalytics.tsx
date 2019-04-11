@@ -1,46 +1,57 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Image,
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
   Button,
 } from 'react-native';
-import { WebBrowser } from 'expo';
+import ChartGraph from '../components/Chart';
 
-export default class AnalyticsScreen extends Component {
+const redData = [ 20, 30, 35, 37, 40, 40, 40 ]
+const blueData = [ 40, 35, 25, 20, 20, 15, 10 ]
+const greenData = [ 40, 50, 25, 50, 35, 20, 50 ]
+
+const red = "Redness"
+const blue= "Bruising"
+const green= "Infection"
+
+
+export default class AnalyticsScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
 
   state = {
     isPatient: true,
-  }
+  };
 
   render() {
     console.log('analytics page')
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-
+        <ScrollView 
+        style={styles.container} 
+        contentContainerStyle={styles.contentContainer}
+        >
+        <View style={styles.logoContainer}>
+          <Image
+            source={require("../assets/images/logo.png")}
+            style={styles.logoImage}
+          />
           <Text style={styles.mainHeaderText}>Pocket GP</Text>
-
-          <View style={styles.logoContainer}>
-            <Image
-              source={require('../assets/images/logo.png')}
-              style={styles.logoImage}
-            />
-          </View>
-
-          {this.state.isPatient
-            && <View style={styles.formContainer}>
-              <Button title="Option1" />
-            </View>}
-
+        </View>
+            <View>
+              <ChartGraph data={redData} name={red}/>
+            </View>
+            <View>
+              <ChartGraph data={blueData} name={blue}/>
+            </View>
+            <View>
+              <ChartGraph data={greenData} name={green}/>
+            </View>
         </ScrollView>
-
       </View>
     );
   }
@@ -57,9 +68,11 @@ const styles = StyleSheet.create({
     paddingTop: 30,
   },
   logoContainer: {
-    alignItems: 'center',
-    marginTop: 20,
-    marginBottom: 20,
+    marginTop: 0,
+    padding: 10,
+    marginBottom: 10,
+    borderBottomWidth: 3,
+    borderColor: "rgba(61,176,215,0.2)"
   },
   formContainer: {
     justifyContent: 'center',
@@ -68,15 +81,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   logoImage: {
-    width: 200,
-    height: 250,
-    resizeMode: 'center',
+    position: "absolute",
+    top: 0,
+    width: 40,
+    height: 50,
+    resizeMode: "center",
+    marginLeft: 20
   },
   mainHeaderText: {
     fontSize: 36,
-    color: 'rgba(0, 0, 0, 1)',
+    color: "rgba(0, 0, 0, 1)",
     lineHeight: 48,
-    textAlign: 'center',
+    textAlign: "right",
+    marginRight: 20
   },
   text: {
     fontSize: 16,

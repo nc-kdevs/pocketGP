@@ -28,7 +28,8 @@ class Main extends Component {
 
   state = {
     name: "",
-    toggleChat: true
+    toggleChat: true,
+    backPressed: false
   };
 
   onPress = () => {

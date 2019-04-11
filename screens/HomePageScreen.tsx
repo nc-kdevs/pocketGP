@@ -1,12 +1,9 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  ScrollView
-} from "react-native";
+import { StyleSheet, View, ScrollView, Image, Text } from "react-native";
 import LoginScreen from "../components/Login";
-import { getUserByUsername, getSurgeryByUsername } from "../assets/utils.js"
+import { getUserByUsername, getSurgeryByUsername } from "../assets/utils.js";
 import PatientHome from "../components/PatientHome";
+import GPHomePageScreen from "./GPHomePageScreen";
 
 export default class HomePageScreen extends React.Component {
   static navigationOptions = {
@@ -16,21 +13,32 @@ export default class HomePageScreen extends React.Component {
 
   state = {
     isPatient: true,
-    isLoggedIn: false,
-    user: {},
-  }
+    isLoggedIn: true,
+    user: {}
+  };
 
   render() {
     const navigate = this.props.navigation;
     return (
       <View style={styles.container}>
-      <ScrollView
+        <ScrollView
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
-      {this.state.isLoggedIn
-      ? <PatientHome navigate={navigate} />
-      : <LoginScreen signIn={this.handleSignIn} />}
+        {this.state.isLoggedIn && <View style={styles.logoContainer}>
+          <Image
+            source={require("../assets/images/logo.png")}
+            style={styles.logoImage}
+          />
+            <Text style={styles.mainHeaderText}>Pocket GP</Text>
+          </View>}
+          {this.state.isLoggedIn
+          ? ((this.state.isPatient)
+            ? <PatientHome navigate={navigate} />
+            : <View style={styles.center}><GPHomePageScreen /></View>)
+          : <View style={styles.center}><LoginScreen
+          signIn={this.handleSignIn} /></View>}
+          
         </ScrollView>
       </View>
     );
@@ -40,28 +48,28 @@ export default class HomePageScreen extends React.Component {
     const username = value.username;
     const password = value.password;
     getUserByUsername(username)
-    .then((newPatient: Object) => {
-      if (newPatient.patient_password === password) {
-        this.setState({
-          user: newPatient,
-          isLoggedIn: true,
-          isPatient: true
-        })
-      }
-    })
-    .catch(() => 'sorry, not found')
+      .then((newPatient: Object) => {
+        if (newPatient.patient_password === password) {
+          this.setState({
+            user: newPatient,
+            isLoggedIn: true,
+            isPatient: true
+          });
+        }
+      })
+      .catch(() => "sorry, not found");
     getSurgeryByUsername(username)
-    .then((newSurgery: Object) => {
-      if (newSurgery.surgery_password === password) {
-        this.setState({
-          user: newSurgery,
-          isLoggedIn: true,
-          isPatient: false
-        })
-      }
-    })
-    .catch(() => 'sorry, not found')
-  }
+      .then((newSurgery: Object) => {
+        if (newSurgery.surgery_password === password) {
+          this.setState({
+            user: newSurgery,
+            isLoggedIn: true,
+            isPatient: false
+          });
+        }
+      })
+      .catch(() => "sorry, not found");
+  };
 }
 
 const styles = StyleSheet.create({
@@ -69,23 +77,27 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     flex: 1,
     flexWrap: "wrap",
-    textAlign: 'center'
+    textAlign: "center"
   },
   content: {
     flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
     backgroundColor: "white",
-    overflow: "hidden",
+    overflow: "hidden"
   },
   contentContainer: {
     paddingTop: 30,
-    alignItems: 'center'
+  },
+  center: {
+    width: 300,
+    height: 500,
+    margin: 10
   },
   logoContainer: {
     marginTop: 0,
     padding: 10,
-    marginBottom: 10,    
+    marginBottom: 10,
     borderBottomWidth: 3,
     borderColor: "rgba(61,176,215,0.2)"
   },

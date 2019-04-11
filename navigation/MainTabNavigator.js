@@ -35,11 +35,7 @@ AilmentNotesStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={
-        Platform.OS === "ios"
-          ? `ios-information-circle${focused ? "" : "-outline"}`
-          : "md-information-circle"
-      }
+      name={Platform.OS === "ios" ? "ios-add-circle-outline" : "md-add-circle-outline"}
     />
   )
 };
@@ -79,30 +75,21 @@ SettingsStack.navigationOptions = {
 const AnalyticsStack = createStackNavigator({
   Analytics: AnalyticsScreen
 });
-AnalyticsStack.navigationOptions = {
-  tabBarLabel: "Account",
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === "ios" ? "ios-options" : "md-options"}
-    />
-  )
-};
 
 AnalyticsStack.navigationOptions = {
   tabBarLabel: "Analytics",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === "ios" ? "ios-options" : "md-options"}
+      name={Platform.OS === "ios" ? "ios-barcode" : "md-barcode"}
     />
   )
 };
 
 export default createBottomTabNavigator({
   HomePageStack,
-  SettingsStack,
   AilmentNotesStack,
   AnalyticsStack,
-  TreatmentStack
+  TreatmentStack,
+  SettingsStack
 });
