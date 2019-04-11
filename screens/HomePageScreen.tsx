@@ -34,10 +34,10 @@ export default class HomePageScreen extends React.Component {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
-        <Button
+        {/* <Button
           title="TEST"
           onPress={this.testNotifications}
-        />
+        /> */}
         {this.state.isLoggedIn && <View style={styles.logoContainer}>
           <Image
             source={require("../assets/images/logo.png")}
