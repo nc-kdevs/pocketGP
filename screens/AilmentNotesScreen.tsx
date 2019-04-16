@@ -26,69 +26,68 @@ export default class AilmentNotes extends React.Component {
     imageData: [],
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
-    isPatient: false,
+    isPatient: true,
     isLoggedIn: false,
-    // user: {},
-    // ailments: [],
-    user: {
-      patient_username: 'snuffles3',
-      patient_password: 'password2',
-      first_name: 'chauncey',
-      surname: 'von snuffles',
-      telephone: '07987777790',
-      email: 'chaunceyvonsnufflesthethird@guildwars.co.uk',
-      address: '9 lions arch/divinitys reach/prestwich/M8 2CS',
-      surgery_id: 1,
-      emerg_contact: '01268930298',
-      general_med: 'stress valium migraines'
-    },
-    ailments: [{
-        ailment_description: "Woke up with this bruise",
-        ailment_id: 16,
-        ailment_name: "Unknown",
-        ailment_type: "Bruise",
-        date: "09:02 10-04-2019",
-        image: "https://i.imgur.com/bXxHmiy.jpg",
-        patient_username: "KDEVS",
-        prescription: null,
-        treatment_plan: null,
-      },
-      {
-        ailment_description: "Got bigger I think",
-        ailment_id: 17,
-        ailment_name: "Unknown",
-        ailment_type: "Bruise",
-        date: "08:44 11-04-2019",
-        image: "https://i.imgur.com/f0NTemp.jpg",
-        patient_username: "KDEVS",
-        prescription: null,
-        treatment_plan: null,
-      },
-      {
-        ailment_description: "Hurts on touch",
-        ailment_id: 18,
-        ailment_name: "Unknown",
-        ailment_type: "Bruise",
-        date: "09:13 12-04-2019",
-        image: "https://i.imgur.com/xKHOJk4.jpg",
-        patient_username: "KDEVS",
-        prescription: null,
-        treatment_plan: null,
-      },
-    ]
+    user: {},
+    ailments: [],
+    // user: {
+    //   patient_username: 'snuffles3',
+    //   patient_password: 'password2',
+    //   first_name: 'chauncey',
+    //   surname: 'von snuffles',
+    //   telephone: '07987777790',
+    //   email: 'chaunceyvonsnufflesthethird@guildwars.co.uk',
+    //   address: '9 lions arch/divinitys reach/prestwich/M8 2CS',
+    //   surgery_id: 1,
+    //   emerg_contact: '01268930298',
+    //   general_med: 'stress valium migraines'
+    // },
+    // ailments: [{
+    //     ailment_description: "Woke up with this bruise",
+    //     ailment_id: 16,
+    //     ailment_name: "Unknown",
+    //     ailment_type: "Bruise",
+    //     date: "09:02 10-04-2019",
+    //     image: "https://i.imgur.com/bXxHmiy.jpg",
+    //     patient_username: "KDEVS",
+    //     prescription: null,
+    //     treatment_plan: null,
+    //   },
+    //   {
+    //     ailment_description: "Got bigger I think",
+    //     ailment_id: 17,
+    //     ailment_name: "Unknown",
+    //     ailment_type: "Bruise",
+    //     date: "08:44 11-04-2019",
+    //     image: "https://i.imgur.com/f0NTemp.jpg",
+    //     patient_username: "KDEVS",
+    //     prescription: null,
+    //     treatment_plan: null,
+    //   },
+    //   {
+    //     ailment_description: "Hurts on touch",
+    //     ailment_id: 18,
+    //     ailment_name: "Unknown",
+    //     ailment_type: "Bruise",
+    //     date: "09:13 12-04-2019",
+    //     image: "https://i.imgur.com/xKHOJk4.jpg",
+    //     patient_username: "KDEVS",
+    //     prescription: null,
+    //     treatment_plan: null,
+    //   },
+    // ]
   };
 
   async componentDidMount() {
-    // getAilmentsByUsername()
-    // .then((ailments) => {
-    //   this.setState({ ailments, })
-    // })
+    getAilmentsByUsername()
+    .then((ailments) => {
+      this.setState({ ailments, })
+    })
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === 'granted' });
   }
 
   render() {
-    // console.log(this.state.ailments)
     const ailment1 = this.state.ailments[0];
     const ailment2 = this.state.ailments[1];
     const ailment3 = this.state.ailments[2];
@@ -201,45 +200,8 @@ export default class AilmentNotes extends React.Component {
     );
   }
 
-  // imgur stable baseURL: https://api.imgur.com/3/
-
-  //   For accessing a user's account, please visit the OAuth2 section of the docs. OAuth Endpoints To access OAuth, the following endpoints must be used:
-
-  // https://api.imgur.com/oauth2/addclient
-  // https://api.imgur.com/oauth2/authorize
-  // https://api.imgur.com/oauth2/token
-  // You can also verify your OAuth 2.0 tokens by setting your header and visiting the page
-
-  // https://api.imgur.com/oauth2/secret
-
-  // Client ID - c6f21ab825b2cc5
-  // Client Secret - 9d810a5a3b5a686ab332a445e4e6e9dce517d5d4
-
-  // post request URL: https://api.imgur.com/3/upload
-  // url is on data.link (type: string)
-  // POST "https://api.imgur.com/3/image" \
-  //   --header "Authorization: Client-ID {{clientId}}" \
-  //   --form "image=R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-
   handleSubmit = (value: Object) => {
     const { image } = this.state;
-    // if (image) {
-    //   return (
-    //     axios
-    //       .post(
-    //         'https://api.imgur.com/3/image',
-    //         { image },
-    //       {
-    //         headers: {
-    //             Authorization: 'Client-ID {c6f21ab825b2cc5}',
-    //           },
-    //       },
-    //       )
-    //       // .post('https://api.imgur.com/3/image', image)
-    //       .then(({ data }) => console.log(data))
-    //       .catch(err => console.log(err, '<-- imgur error'))
-    //   );
-    // }
     const ailmentObj = {
       image: `${image}`,
       ailment_type: value.type,
@@ -248,7 +210,6 @@ export default class AilmentNotes extends React.Component {
       prescription: value.prescription,
       treatment_plan: value.treatment
     };
-    console.log(ailmentObj)
     return axios
     .post('https://pocket-gp.herokuapp.com/api/patients/KDEVS/ailments', ailmentObj)
     .then(({ data }) => {
