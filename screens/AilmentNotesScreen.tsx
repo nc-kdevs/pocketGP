@@ -11,7 +11,8 @@ import {
 import { Camera, Permissions } from 'expo';
 import t from 'tcomb-form-native';
 import axios from 'axios';
-import { getAilmentsByUsername } from '../assets/utils.js'
+import { getAilmentsByUsername } from '../assets/utils.js';
+import AnalyticsScreen from './AilmentAnalytics';
 
 export default class AilmentNotes extends React.Component {
   static navigationOptions = {
@@ -22,9 +23,25 @@ export default class AilmentNotes extends React.Component {
   state = {
     image: null,
     imageURL: null,
+    imageData: [],
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
-    isPatient: true,
+    isPatient: false,
+    isLoggedIn: false,
+    // user: {},
+    // ailments: [],
+    user: {
+      patient_username: 'snuffles3',
+      patient_password: 'password2',
+      first_name: 'chauncey',
+      surname: 'von snuffles',
+      telephone: '07987777790',
+      email: 'chaunceyvonsnufflesthethird@guildwars.co.uk',
+      address: '9 lions arch/divinitys reach/prestwich/M8 2CS',
+      surgery_id: 1,
+      emerg_contact: '01268930298',
+      general_med: 'stress valium migraines'
+    },
     ailments: [{
         ailment_description: "Woke up with this bruise",
         ailment_id: 16,
@@ -157,49 +174,27 @@ export default class AilmentNotes extends React.Component {
             />
           </View>
           : <View>
-            <Text style={styles.mainText}>KDEVS Ailment Notes:</Text>
-            <View>
+            <Text style={styles.mainText}>{this.state.user.first_name} {this.state.user.surname}'s Ailment Notes:</Text>
+            {this.state.ailments.map(ailment => <View key={ailment.ailment_id}>
               <View style={styles.ailmentContainer}>
-                <Text style={styles.ailmentText}>Decription: {ailment1.ailment_description}</Text>
-                <Text style={styles.ailmentText}>Condition (if known): {ailment1.ailment_name}</Text>
-                <Text style={styles.ailmentText}>Type: {ailment1.ailment_type}</Text>
-                <Text style={styles.ailmentText}>Date: {ailment1.date}</Text>
-                <Text style={styles.ailmentText}>Prescription: null</Text>
-                <Text style={styles.ailmentText}>Treatment Plan: null</Text>
-                <Image
-                    source={require('../assets/images/KDEVS1.jpg')}
+                <Text style={styles.ailmentText}>Decription: {ailment.ailment_description}</Text>
+                <Text style={styles.ailmentText}>Condition (if known): {ailment.ailment_name}</Text>
+                <Text style={styles.ailmentText}>Type: {ailment.ailment_type}</Text>
+                <Text style={styles.ailmentText}>Date: {ailment.date}</Text>
+                <Text style={styles.ailmentText}>Prescription: {ailment.prescription}</Text>
+                <Text style={styles.ailmentText}>Treatment Plan: {ailment.treatment_plan}</Text>
+                {ailment.image.includes('.')
+                  ? <Image
+                    source={ailment.image}
                     style={styles.ailmentImage}
                   />
+                  : <Image
+                  source={require('../assets/images/icon.png')}
+                  style={styles.ailmentImage}
+                />
+                }
               </View>
-            </View>
-            <View>
-              <View style={styles.ailmentContainer}>
-                <Text style={styles.ailmentText}>Decription: {ailment2.ailment_description}</Text>
-                <Text style={styles.ailmentText}>Condition (if known): {ailment2.ailment_name}</Text>
-                <Text style={styles.ailmentText}>Type: {ailment2.ailment_type}</Text>
-                <Text style={styles.ailmentText}>Date: {ailment2.date}</Text>
-                <Text style={styles.ailmentText}>Prescription: null</Text>
-                <Text style={styles.ailmentText}>Treatment Plan: null</Text>
-                <Image
-                    source={require('../assets/images/KDEVS2.jpg')}
-                    style={styles.ailmentImage}
-                  />
-              </View>
-            </View>
-            <View>
-              <View style={styles.ailmentContainer}>
-                <Text style={styles.ailmentText}>Decription: {ailment3.ailment_description}</Text>
-                <Text style={styles.ailmentText}>Condition (if known): {ailment3.ailment_name}</Text>
-                <Text style={styles.ailmentText}>Type: {ailment3.ailment_type}</Text>
-                <Text style={styles.ailmentText}>Date: {ailment3.date}</Text>
-                <Text style={styles.ailmentText}>Prescription: null</Text>
-                <Text style={styles.ailmentText}>Treatment Plan: null</Text>
-                <Image
-                    source={require('../assets/images/KDEVS3.jpg')}
-                    style={styles.ailmentImage}
-                  />
-              </View>
-            </View>
+            </View>)}
           </View>}
         </ScrollView>
       </View>
@@ -259,6 +254,9 @@ export default class AilmentNotes extends React.Component {
     .then(({ data }) => {
       console.log(data, '<-- data')
       this.setState({ image: null })
+      this.props.navigation.navigate('Analytics', {
+        imageData: this.state.imageData
+      });
     })
     .catch(err => console.log(err, '<-- BE error'))
   }
@@ -434,4 +432,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#00BFFF',
   },
+  hidden: {
+    height: 0,
+    width: 0
+  }
 });

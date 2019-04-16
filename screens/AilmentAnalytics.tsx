@@ -9,15 +9,6 @@ import {
 } from 'react-native';
 import ChartGraph from '../components/Chart';
 
-const redData = [ 20, 40, 50 ]
-const blueData = [ 25, 40, 20 ]
-const greenData = [ 20, 25, 45 ]
-
-const red = "Redness"
-const blue = "Bruising"
-const green = "Infection"
-
-
 export default class AnalyticsScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -25,9 +16,25 @@ export default class AnalyticsScreen extends React.Component {
 
   state = {
     isPatient: true,
+    isLoggedIn: false,
+    user: {},
   };
 
   render() {
+    const defaultImagedata = [{r: 110, g: 10, b: 181},
+      {r: 115, g: 10, b: 199},
+      {r: 121, g: 12, b: 215},
+      {r: 127, g: 16, b: 227},
+      {r: 120, g: 22, b: 232},
+      {r: 109, g: 25, b: 235},
+      {r: 92, g: 18, b: 236}]
+    const imageData = this.props.navigation.getParam('imageData', defaultImagedata);
+    const red = "Redness"
+    const blue = "Bruising"
+    const green = "Infection"
+    const redData = this.getRedData(imageData)
+    const blueData = this.getBlueData(imageData)
+    const greenData = this.getGreenData(imageData)
     return (
       <View style={styles.container}>
         <ScrollView
@@ -53,6 +60,25 @@ export default class AnalyticsScreen extends React.Component {
         </ScrollView>
       </View>
     );
+  }
+
+  getRedData = (imageData) => {
+    return imageData.reduce((acc, val) => {
+      acc.push(val.r)
+      return acc;
+    }, [])
+  }
+  getBlueData = (imageData) => {
+    return imageData.reduce((acc, val) => {
+      acc.push(val.b)
+      return acc;
+    }, [])
+  }
+  getGreenData = (imageData) => {
+    return imageData.reduce((acc, val) => {
+      acc.push(val.g)
+      return acc;
+    }, [])
   }
 
 }
