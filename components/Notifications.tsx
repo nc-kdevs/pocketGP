@@ -1,17 +1,11 @@
 import React, { Component } from "react";
 import {
-  Platform,
-  StyleSheet,
   Button,
-  TouchableOpacity,
-  TouchableHighlight,
-  Image,
   Modal,
   Text,
   Alert,
   View,
   ListView,
-  RecyclerViewBackedScrollView
 } from "react-native";
 
 export interface NotificationProps {
