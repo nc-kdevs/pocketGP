@@ -21,12 +21,12 @@ export default class ChartGraph extends React.Component {
   }
   render() {
     const datas = {
-      labels: ['1', '2', '3', '4', '5', '6', '7'],
-     datasets: [{
-       data: this.props.data,
-       color: (opacity = 1) => `rgba(61, 176, 215, ${opacity})`, // optional
-       strokeWidth: 10 // optional
-     }]
+      labels: ['1', '2', '3'],
+      datasets: [{
+        data: this.props.data,
+        color: (opacity = 1) => `rgba(61, 176, 215, ${opacity})`, // optional
+        strokeWidth: 10 // optional
+      }]
    }
     const width = Dimensions.get('window').width
     const height = 220

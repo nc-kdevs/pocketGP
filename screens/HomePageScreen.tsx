@@ -1,9 +1,10 @@
 import React from "react";
-import { StyleSheet, View, ScrollView, Image, Text } from "react-native";
+import { StyleSheet, View, ScrollView, Image, Text, Button } from "react-native";
 import LoginScreen from "../components/Login";
 import { getUserByUsername, getSurgeryByUsername } from "../assets/utils.js";
 import PatientHome from "../components/PatientHome";
 import GPHomePageScreen from "./GPHomePageScreen";
+import { Permissions, Constants, Notifications } from "expo";
 
 export default class HomePageScreen extends React.Component {
   static navigationOptions = {
@@ -13,9 +14,17 @@ export default class HomePageScreen extends React.Component {
 
   state = {
     isPatient: true,
-    isLoggedIn: true,
+    isLoggedIn: false,
     user: {}
   };
+
+  async componentDidMount() {
+    let result = await
+      Permissions.askAsync(Permissions.NOTIFICATIONS);
+    if (Constants.lisDevice && result.status === 'granted') {
+      console.log('Notification permissions granted.')
+    }
+  }
 
   render() {
     const navigate = this.props.navigation;
@@ -25,20 +34,20 @@ export default class HomePageScreen extends React.Component {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
-        {this.state.isLoggedIn && <View style={styles.logoContainer}>
-          <Image
-            source={require("../assets/images/logo.png")}
-            style={styles.logoImage}
-          />
+          {this.state.isLoggedIn && <View style={styles.logoContainer}>
+            <Image
+              source={require("../assets/images/logo.png")}
+              style={styles.logoImage}
+            />
             <Text style={styles.mainHeaderText}>Pocket GP</Text>
           </View>}
           {this.state.isLoggedIn
-          ? ((this.state.isPatient)
-            ? <PatientHome navigate={navigate} />
-            : <View style={styles.center}><GPHomePageScreen /></View>)
-          : <View style={styles.center}><LoginScreen
-          signIn={this.handleSignIn} /></View>}
-          
+            ? ((this.state.isPatient)
+              ? <PatientHome navigate={navigate} />
+              : <View style={styles.center}><GPHomePageScreen /></View>)
+            : <View style={styles.center}><LoginScreen
+              signIn={this.handleSignIn} /></View>}
+
         </ScrollView>
       </View>
     );

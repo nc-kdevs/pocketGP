@@ -4,11 +4,11 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
   Button,
 } from 'react-native';
 import t from 'tcomb-form-native';
+import axios from 'axios';
 
 export default class LoginScreen extends Component {
   static navigationOptions = {
@@ -88,7 +88,27 @@ export default class LoginScreen extends Component {
     // use ref to get the form value
     const value = this._form.getValue();
     console.log('value: ', value);
-    return null 
+    const newPatient = {
+      patient_username: value.username,
+      patient_password: value.password,
+      first_name: value.firstname,
+      surname: value.surname,
+      telephone: value.telephone,
+      email: value.email,
+      address: `${value["address Line 1"]}/${value["address Line 2"]}/${value["address Town"]}/${value["post Code"]}`,
+      surgery_id: +value.surgery,
+      emerg_contact: value.emergencyContact,
+      general_med: value["general medical history"]
+    }
+    return axios
+    .post('https://pocket-gp.herokuapp.com/api/patients', newPatient)
+    .then(({ data }) => {
+      this.setState({ isNewUser: true })
+      this.props.navigation.navigate('Home', {
+        user: newPatient
+      });
+    })
+    .catch(err => console.log(err, '<-- BE error'))
   }
 
 }

@@ -6,7 +6,7 @@ import {
 } from "react-navigation";
 
 import TabBarIcon from "../components/TabBarIcon";
-import LinksScreen from "../screens/LinksScreen";
+import ChatScreen from "../screens/ChatScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import HomePageScreen from "../screens/HomePageScreen";
 import AilmentNotesScreen from "../screens/AilmentNotesScreen";
@@ -35,21 +35,25 @@ AilmentNotesStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === "ios" ? "ios-add-circle-outline" : "md-add-circle-outline"}
+      name={
+        Platform.OS === "ios"
+          ? "ios-add-circle-outline"
+          : "md-add-circle-outline"
+      }
     />
   )
 };
 
-const TreatmentStack = createStackNavigator({
-  Treatment: LinksScreen
+const ChatStack = createStackNavigator({
+  Chat: ChatScreen
 });
 
-TreatmentStack.navigationOptions = {
-  tabBarLabel: "Plan",
+ChatStack.navigationOptions = {
+  tabBarLabel: "GP Chat",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === "ios" ? "ios-link" : "md-link"}
+      name={Platform.OS === "ios" ? "ios-people" : "md-people"}
     />
   )
 };
@@ -90,6 +94,6 @@ export default createBottomTabNavigator({
   HomePageStack,
   AilmentNotesStack,
   AnalyticsStack,
-  TreatmentStack,
+  ChatStack,
   SettingsStack
 });

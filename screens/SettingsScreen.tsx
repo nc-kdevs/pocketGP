@@ -8,6 +8,7 @@ import {
   Button
 } from "react-native";
 import t from "tcomb-form-native";
+import axios from 'axios';
 
 export default class SettingsScreen extends Component {
   static navigationOptions = {
@@ -17,6 +18,21 @@ export default class SettingsScreen extends Component {
 
   state = {
     isPatient: true,
+    isLoggedIn: false,
+    // user: {},
+    // for testing
+    user: {
+      patient_username: 'snuffles3',
+      patient_password: 'password2',
+      first_name: 'chauncey',
+      surname: 'von snuffles',
+      telephone: '07987777790',
+      email: 'chaunceyvonsnufflesthethird@guildwars.co.uk',
+      address: '9 lions arch/divinitys reach/prestwich/M8 2CS',
+      surgery_id: 1,
+      emerg_contact: '01268930298',
+      general_med: 'stress valium migraines'
+    },
     isIncorrectPassword: false,
   };
 
@@ -44,7 +60,7 @@ export default class SettingsScreen extends Component {
             />
             <Button title="Submit Changes" onPress={() => {
               const value = this._form.getValue();
-              if (value) this.handleSubmit(value)
+              if (value) this.handlePatientSubmit(value)
               else this.setState({ isIncorrectPassword: false })
             }} />
           </View>
@@ -69,18 +85,50 @@ export default class SettingsScreen extends Component {
               ref={(patchSetting: object) => (this._form = patchSetting)}
               options={options}
             />
-            <Button title="Submit Changes" onPress={this.handleSubmit} />
+            <Button title="Submit Changes" onPress={() => {
+              const value = this._form.getValue();
+              if (value) this.handleSurgerySubmit(value)
+              else this.setState({ isIncorrectPassword: false })
+            }} />
           </View>
         </ScrollView>
       </View>
     );
   }
 
-  handleSubmit = (value: object) => {
-    console.log("value: ", value);
-    if (value.password === 'PocketGP') {
-      console.log('do patch request')
-      this.setState({ isIncorrectPassword: false })
+  handleSurgerySubmit = (value) => {
+    if (value.password === 'cats4ever') {
+      const updatedSurgery = {
+        surgery_name: value.name,
+        surgery_address: `${value["address Line 1"]}/${value["address Line 2"]}/${value["address Town"]}/${value["post Code"]}`
+      }
+      return axios
+      .patch('https://pocket-gp.herokuapp.com/api/surgeries/1', updatedSurgery)
+      .then(() => {
+        this.setState({ isIncorrectPassword: false })
+      })
+      .catch(err => console.log(err, '<-- BE error'))
+    }
+    else this.setState({ isIncorrectPassword: true })
+  };
+
+  handlePatientSubmit = (value) => {
+    if (value.password === this.state.user.patient_password) {
+      const updatedPatient = {
+        first_name: value.firstname,
+        surname: value.surname,
+        telephone: value.telephone,
+        email: value.email,
+        address: `${value["address Line 1"]}/${value["address Line 2"]}/${value["address Town"]}/${value["post Code"]}`,
+        surgery_id: +value.surgery,
+        emerg_contact: value.emergencyContact,
+      }
+      return axios
+      .patch(`https://pocket-gp.herokuapp.com/api/patients/${user.username}`, updatedPatient)
+      .then(() => {
+        this.setState({ isIncorrectPassword: false })
+      })
+      .catch(err => console.log(err, '<-- BE error'))
     }
     else this.setState({ isIncorrectPassword: true })
   };

@@ -2,8 +2,6 @@ import React from "react";
 import { Platform, StatusBar, StyleSheet, View } from "react-native";
 import { AppLoading, Asset, Font, Icon } from "expo";
 import AppNavigator from "./navigation/AppNavigator";
-import HomePageScreen from "./screens/HomePageScreen";
-import LinksScreen from "./screens/LinksScreen";
 
 export default class App extends React.Component {
   state = {
@@ -22,14 +20,8 @@ export default class App extends React.Component {
     } else {
       return (
         <View style={styles.container}>
-        {/* <View style={styles.hidden}>
-          <LinksScreen />
-        </View>
-        <View style={styles.hidden}>
-          <HomePageScreen />
-        </View> */}
-        {Platform.OS === "ios" && <StatusBar barStyle="default" />}
-        <AppNavigator />
+          {Platform.OS === "ios" && <StatusBar barStyle="default" />}
+          <AppNavigator />
         </View>
       );
     }
