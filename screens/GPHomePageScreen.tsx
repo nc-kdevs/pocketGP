@@ -12,7 +12,6 @@ export default class GPHomePageScreen extends Component {
   }
 
   onDayPress = day => {
-    console.log(day)
     this.setState({
       selected: day.dateString
     });
@@ -31,7 +30,6 @@ export default class GPHomePageScreen extends Component {
 
 const styles = StyleSheet.create({
   MainContainer: {
-    // flex: 1,
     paddingTop: Platform.OS === "ios" ? 20 : 0,
     margin: 0,
     marginTop: 0,
@@ -75,7 +73,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: "#FFFFFF",
     overflow: 'hidden'
-    // height: 100
   },
   calendarContainer: {
     flex: 2,

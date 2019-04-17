@@ -11,8 +11,7 @@ import {
 import { Camera, Permissions } from 'expo';
 import t from 'tcomb-form-native';
 import axios from 'axios';
-import { getAilmentsByUsername } from '../assets/utils.js';
-import AnalyticsScreen from './AilmentAnalytics';
+import { getAilmentsByUsername, localNotification, schedulingOptions } from '../assets/utils.js';
 
 export default class AilmentNotes extends React.Component {
   static navigationOptions = {
@@ -30,6 +29,7 @@ export default class AilmentNotes extends React.Component {
     isLoggedIn: false,
     user: {},
     ailments: [],
+    // for testing
     // user: {
     //   patient_username: 'snuffles3',
     //   patient_password: 'password2',
@@ -200,6 +200,10 @@ export default class AilmentNotes extends React.Component {
     );
   }
 
+  notifications = () => {
+    Notifications.scheduleLocalNotificationAsync(localNotification, schedulingOptions);
+  }
+
   handleSubmit = (value: Object) => {
     const { image } = this.state;
     const ailmentObj = {
@@ -213,11 +217,11 @@ export default class AilmentNotes extends React.Component {
     return axios
     .post('https://pocket-gp.herokuapp.com/api/patients/KDEVS/ailments', ailmentObj)
     .then(({ data }) => {
-      console.log(data, '<-- data')
+      this.notifications();
       this.setState({ image: null })
-      this.props.navigation.navigate('Analytics', {
-        imageData: this.state.imageData
-      });
+      // this.props.navigation.navigate('Analytics', {
+      //   imageData: this.state.imageData
+      // });
     })
     .catch(err => console.log(err, '<-- BE error'))
   }

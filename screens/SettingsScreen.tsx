@@ -79,7 +79,6 @@ export default class SettingsScreen extends Component {
   }
 
   handleSubmit = (value: object) => {
-    console.log("value: ", value);
     if (value.password === 'PocketGP') {
       console.log('do patch request')
       this.setState({ isIncorrectPassword: false })
